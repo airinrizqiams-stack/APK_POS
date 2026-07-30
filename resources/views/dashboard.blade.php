@@ -11,13 +11,13 @@
 
 <div class="text-center">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12">~
             <h1>Today's Sales</h1>
         </div>
         <div class="col-md-6">
         <div class="card">
           <div class="card-header">
-            Total Nilai Penjualan Hari ini
+            Total Nilai Penjualan Hari inij
         <div>
         <div class="card-body">
            <h5 class="card-title">Rp {{ number_format($ringkasan['total_penjualan']) }}</h5>
