@@ -2,15 +2,13 @@
 
 namespace App\Services;
 
-// Tambahkan kedua baris ini di atas class
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Carbon;
+use Carbon\Carbon;
 
 class LaporanPenjualanService
 {
     public function ringkasanHariIni(): array
     {
-        // Pastikan DB di bawah ini menggunakan huruf kapital yang benar
         $data = DB::table('penjualan')
             ->whereDate('created_at', Carbon::today())
             ->where('status', 'COMPLETED')
@@ -22,7 +20,29 @@ class LaporanPenjualanService
             ')
             ->first();
 
-        // Ubah objek StdClass menjadi array agar sesuai dengan return type array
-        return (array) $data;
+        return [
+            'total_transaksi' => $data->total_transaksi ?? 0,
+            'total_penjualan' => $data->total_penjualan ?? 0,
+            'total_cash' => $data->total_cash ?? 0,
+            'total_non_tunai' => $data->total_non_tunai ?? 0,
+        ];
+    }
+
+    public function produkTerlarisHariIni(int $limit = 5)
+    {
+        return DB::table('item_penjualan')
+           ->join('penjualan', 'penjualan.id', '=', 'item_penjualan.penjualan_id')
+           ->join('produk', 'produk.id', '=', 'item_penjualan.produk_id')
+           ->whereDate('penjualan.created_at', Carbon::today())
+           ->where('penjualan.status', 'COMPLETED')
+           ->groupBy('produk.id', 'produk.nama')
+           ->select(
+                'produk.nama',
+                'produk.stok',
+                DB::raw('SUM(item_penjualan.kuantitas) as total_terjual')
+            )
+            ->orderByDesc('total_terjual')
+            ->limit($limit)
+            ->get();
     }
 }
