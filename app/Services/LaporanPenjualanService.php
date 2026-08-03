@@ -2,13 +2,23 @@
 
 namespace App\Services;
 
+<<<<<<< HEAD
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+=======
+// Tambahkan kedua baris ini di atas class
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
+>>>>>>> 7fe10870449df8d307f7f7f883236694e2066e3d
 
 class LaporanPenjualanService
 {
     public function ringkasanHariIni(): array
     {
+<<<<<<< HEAD
+=======
+        // Pastikan DB di bawah ini menggunakan huruf kapital yang benar
+>>>>>>> 7fe10870449df8d307f7f7f883236694e2066e3d
         $data = DB::table('penjualan')
             ->whereDate('created_at', Carbon::today())
             ->where('status', 'COMPLETED')
@@ -20,6 +30,7 @@ class LaporanPenjualanService
             ')
             ->first();
 
+<<<<<<< HEAD
         return [
             'total_transaksi' => $data->total_transaksi ?? 0,
             'total_penjualan' => $data->total_penjualan ?? 0,
@@ -44,5 +55,9 @@ class LaporanPenjualanService
             ->orderByDesc('total_terjual')
             ->limit($limit)
             ->get();
+=======
+        // Ubah objek StdClass menjadi array agar sesuai dengan return type array
+        return (array) $data;
+>>>>>>> 7fe10870449df8d307f7f7f883236694e2066e3d
     }
 }

@@ -23,7 +23,11 @@ class RoleMiddleware
                 ->withErrors(['Silakan login terlebih dahulu.']);
         }
 
+<<<<<<< HEAD
         $userRole = $request->user()->role?->name;
+=======
+        $userRole = $request->user()->role;
+>>>>>>> 7fe10870449df8d307f7f7f883236694e2066e3d
 
         // Jika role user tidak sesuai ruote yang diminta
         if (!in_array($userRole, $roles)) {
