@@ -2,8 +2,7 @@
 
 namespace App\Providers;
 
-<<<<<<< HEAD
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider AS ServiceProvider;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use Carbon\Carbon;
 use App\Models\User;
@@ -11,16 +10,15 @@ use App\Policies\DashboardPolicy;
 
 class AppServiceProvider extends ServiceProvider
 {
+    /**
+     * The policy mappings for the application.
+     *
+     * @var array<class-string, class-string>
+     */
     protected $policies = [
-        User::class     => DashboardPolicy::class
+        User::class => DashboardPolicy::class,
     ];
 
-=======
-use Illuminate\Support\ServiceProvider;
-
-class AppServiceProvider extends ServiceProvider
-{
->>>>>>> 7fe10870449df8d307f7f7f883236694e2066e3d
     /**
      * Register any application services.
      */
@@ -34,13 +32,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-<<<<<<< HEAD
-        Paginator::useBootstrapFive();
-        Carbon::setLocale('id');
+        // Daftarkan policies
         $this->registerPolicies();
-        
-=======
-        //
->>>>>>> 7fe10870449df8d307f7f7f883236694e2066e3d
+
+        // Gunakan Bootstrap 5 untuk Pagination
+        Paginator::useBootstrapFive();
+
+        // Set bahasa Carbon ke Indonesia
+        Carbon::setLocale('id');
     }
 }

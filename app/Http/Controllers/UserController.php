@@ -15,19 +15,18 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Searchrequest $request)
+    public function index(SearchRequest $request)
     {
         $keyword = $request->input('search');
 
-        if($keyword) {
+        if ($keyword) {
             $users = User::whereRaw("MATCH(name, email) AGAINST(? IN BOOLEAN MODE)", [$keyword])
-              ->paginate(10)
-              ->withQueryString();
-    } else {
+             ->paginate(10)
+             ->withQueryString();
+        } else {
             $users = User::query()->paginate(10)->withQueryString();
-    }
-
-    return view('users.index', compact('users'));
+        }
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -36,7 +35,6 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::all();
-
         return view('users.create', compact('roles'));
     }
 
@@ -47,15 +45,13 @@ class UserController extends Controller
     {
         $dataReq = $request->validated();
 
-        $data['name'] = $dataReq['name'];
-        $data['email'] = $dataReq['email'];
-        $data['password'] = Hash::make($dataReq['password']);
-        $data['role_id'] = $dataReq['role_id'];
+        // PERBAIKAN: Enkripsi password langsung di dalam array yang divalidasi
+        $dataReq['password'] = Hash::make($dataReq['password']);
 
-        User::create($data);
+        // Langsung masukkan $dataReq yang sudah valid
+        User::create($dataReq);
 
-        // Pastikan nama route ini sesuai dengan di routes/web.php Anda
-        return redirect()->route('admin.users.index')->with('success', 'User berhasil dibuat');
+        return redirect()->route('users.index')->with('success', 'User berhasil dibuat');
     }
 
     /**
@@ -86,6 +82,7 @@ class UserController extends Controller
         $user->email   = $dataReq['email'];
         $user->role_id = $dataReq['role_id'];
 
+        // Cek apakah password diisi atau tidak
         if (!empty($dataReq['password'])) {
             $user->password = Hash::make($dataReq['password']);
         }
@@ -98,10 +95,9 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user) // PERBAIKAN: Mengubah (string $id) menjadi (User $user)
+    public function destroy(User $user)
     {
         $user->delete();
-
         return back()->with('success', 'User deleted');
     }
 }

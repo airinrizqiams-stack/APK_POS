@@ -3,7 +3,8 @@
 namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule; 
+use Illuminate\Validation\Rule;
+use Illuminate\Contracts\Validation\ValidationRule; // <-- Ditambahkan agar VS Code tidak membaca "undefined type"
 
 class UpdateRequest extends FormRequest
 {
@@ -18,23 +19,26 @@ class UpdateRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, ValidationRule|array<mixed>|string>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:100',
-                   'email' => [
-            'required',
-            'email',
-            Rule::unique('users')->ignore($this->route('user')?->id ?? $this->user),
-        ],
-            'password' => 'nullable|min:8',
-            'role_id' => 'required',
+            'name'      => 'required|string|max:100',
+            'email'     => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($this->route('user')?->id ?? $this->user),
+            ],
+            'password'  => 'nullable|min:8',
+            'role_id'   => 'required',
             'is_active' => 'boolean'
         ];
     }
 
+    /**
+     * Get the error messages for the defined validation rules.
+     */
     public function messages(): array
     {
         return [
@@ -43,7 +47,7 @@ class UpdateRequest extends FormRequest
             'email.required'    => 'Email wajib diisi.',
             'email.email'       => 'Format email tidak valid.',
             'password.min'      => 'Password minimal :min karakter.',
-            'role.id.required'     => 'Role wajib diisi.',
+            'role_id.required'  => 'Role wajib diisi.', // <-- Diperbaiki dari role.id menjadi role_id
         ];
     }
 }
