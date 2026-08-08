@@ -8,9 +8,9 @@
 
 <h1>Halaman Produk</h1>
 
-<a href="" class="btn btn-primary mb-3">create</a>
+<a href="{{ route('produk.create') }}" method="GET" class="btn btn-primary mb-3">create</a>
 
-<form action="" method="" class="mb-3">
+<form action="{{ route('produk.index') }}" method="GET" class="mb-3">
     <div class="input-group">
         <input 
             type="text" 
@@ -43,12 +43,17 @@
     <tr>
       <th scope="row">{{ $products->firstItem() + $loop->index }}</th>
       <td>{{ $product->user->name }}</td>
+      <td>
+        <img src="{{ asset('storage/'.$product->foto) }}"
+                 width="100"
+                 class="img-thumbnail">
+      </td>
       <td>{{ $product->foto }}</td>
       <td>{{ $product->nama }}</td>
       <td>{{ $product->harga_beli }}</td>
       <td>{{ $product->harga_jual }}</td>
       <td>{{ $product->stok }}</td>
-      <td>
+      <td class="d-flex gap-1">
         <a href="" class="btn btn-warning">Edit</a>
         ||
         <form action="" method="" class="d-inline">
@@ -60,19 +65,12 @@
     </form>
   </td>
 </tr>
+    @empty
     <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
+        <td colspan=8><h1>Data tidak tersedia.</h1></td>
     </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>John</td>
-      <td>Doe</td>
-      <td>@social</td>
-    </tr>
+    @endforelse
   </tbody>
 </table>
-
+{{ $products->links() }}
 @endsection
