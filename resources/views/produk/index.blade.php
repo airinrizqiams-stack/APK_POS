@@ -43,13 +43,15 @@
     <tr>
       <th scope="row">{{ $products->firstItem() + $loop->index }}</th>
       <td>{{ $product->user->name }}</td>
-      <td>{{ $product->foto }}</td>
+      <td>
+        <img src="{{ asset('storage/'.$product->foto) }}" width="100" class="img-thumbnail">
+      </td>
       <td>{{ $product->nama }}</td>
       <td>{{ $product->harga_beli }}</td>
       <td>{{ $product->harga_jual }}</td>
       <td>{{ $product->stok }}</td>
       <td class="d-flex gap-1">
-        <a href="" class="btn btn-warning">Edit</a>
+        <a href="{{ route('admin.produk.edit', $product) }}" class="btn btn-warning">Edit</a>
         ||
         <form action="" method="" class="d-inline">
             @csrf

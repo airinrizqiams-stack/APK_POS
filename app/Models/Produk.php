@@ -11,7 +11,7 @@ class Produk extends Model
 
     protected $table = 'produk';
     
-    protected $fillatable = [
+    protected $fillable = [
         'user_id',
         'foto',
         'nama',
