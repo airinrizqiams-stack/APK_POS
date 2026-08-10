@@ -1,12 +1,12 @@
 @csrf
 
 <div>
-        <label for="validationServerFoto" class="form-label">Gambar</label>
-        <input type="file" 
-        name="foto" 
-        class="form-control @error('foto') is-invalid @enderror">
+    <label>Gambar</label>
+    <input type="file" 
+           name="foto" 
+           class="form-control @error('foto') is-invalid @enderror">
         @error('foto')
-            <div id="validationServerFotoFeedback" class="invalid-feedback d-block">
+            <div class="invalid-feedback d-block">
                 {{ $message }}
             </div>
         @enderror
@@ -14,8 +14,7 @@
 
 <div>
     <label>Nama Produk</label><br>
-    <input type="text" 
-           name="name"
+    <input type="text" name="name"
            class="form-control @error('name') is-invalid @enderror"
            value="{{ old('name') }}">
     @error('name')
@@ -27,8 +26,7 @@
 
 <div>
     <label>Harga Beli</label><br>
-    <input type="number" 
-           name="purchase_price"
+    <input type="number" name="purchase_price"
            class="form-control @error('purchase_price') is-invalid @enderror"
            value="{{ old('purchase_price') }}">
     @error('purchase_price')
@@ -40,8 +38,7 @@
 
 <div>
     <label>Harga Jual</label><br>
-    <input type="number" 
-           name="selling_price"
+    <input type="number" name="selling_price"
            class="form-control @error('selling_price') is-invalid @enderror"
            value="{{ old('selling_price') }}">
     @error('selling_price')
@@ -53,8 +50,7 @@
 
 <div>
     <label>Stok</label><br>
-    <input type="number" 
-           name="stock"
+    <input type="number" name="stock"
            class="form-control @error('stock') is-invalid @enderror"
            value="{{ old('stock') }}">
     @error('stock')
