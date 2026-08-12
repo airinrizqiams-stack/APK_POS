@@ -8,9 +8,11 @@
 
 <h1>Halaman Produk</h1>
 
-<a href="{{ route('admin.produk.create') }}" method="GET" class="btn btn-primary mb-3">create</a>
+@can('create', App\Models\Produk::class)
+  <a href="{{ route('produk.create') }}" method="GET" class="btn btn-primary mb-3">create</a>
+@endcan
 
-<form action="{{ route('admin.produk.index') }}" method="GET" class="mb-3">
+<form action="{{ route('produk.index') }}" method="GET" class="mb-3">
     <div class="input-group">
         <input 
             type="text" 
@@ -50,17 +52,31 @@
       <td>{{ $product->harga_beli }}</td>
       <td>{{ $product->harga_jual }}</td>
       <td>{{ $product->stok }}</td>
+      
+      <!-- DI SINI ADALAH TEMPAT PERUBAHANNYA -->
       <td class="d-flex gap-1">
-        <a href="{{ route('admin.produk.edit', $product) }}" class="btn btn-warning">Edit</a>
+        @can('view', $product)
+          <a href="{{ route('produk.show', $product) }}" class="btn btn-info text-white">Detail</a>
+        @endcan
+        
         ||
-        <form action="" method="" class="d-inline">
+        
+        @can('update', $product)
+          <a href="{{ route('produk.edit', $product) }}" class="btn btn-warning">Edit</a>
+        @endcan
+        ||
+        @can('delete', $product)
+        <form action="{{ route('produk.destroy', $product) }}" method="POST" class="d-inline">
             @csrf
             @method('DELETE')
             <button class="btn btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus produk ini?')">
                 Hapus
             </button>
           </form>
-        </td>
+        @endcan
+      </td>
+      <!-- AKHIR DARI PERUBAHAN BLOK AKSI -->
+
     </tr>
     @empty
        <tr>

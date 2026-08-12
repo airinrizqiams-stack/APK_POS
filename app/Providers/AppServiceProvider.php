@@ -7,16 +7,14 @@ use Illuminate\Pagination\Paginator;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Policies\DashboardPolicy;
+use App\Models\Produk;
+use App\Policies\ProdukPolicy;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * The policy mappings for the application.
-     *
-     * @var array<class-string, class-string>
-     */
     protected $policies = [
         User::class => DashboardPolicy::class,
+        Produk::class => ProdukPolicy::class
     ];
 
     /**

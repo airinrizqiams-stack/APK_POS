@@ -5,9 +5,10 @@
 @section('content')
 <h4>Edit Produk</h4>
 
-<form action=""
-      method=""
-      enctype="">
+<form action="{{ route('produk.update', $produk) }}"
+      method="POST"
+      enctype="multipart/form-data">
+      @method('PUT')
 @include('Produk._form')
 </form>
 @endsection

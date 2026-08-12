@@ -9,8 +9,8 @@
     </div>
 @endif
 
-<div class="row">
-    <div class="col">
+<div class="row mb-3">
+    <div class="col-md-6">
         <div>
             <label>Gambar</label>
             <input type="file"
@@ -24,7 +24,7 @@
             @enderror
         </div>
     </div>
-    <div class="col">
+    <div class="col-md-6">
         <div class="mb-2">
             <label>Preview Foto</label><br>
             <img id="preview" class="img-thumbnail mt-2" style="display:none" width="150">
@@ -32,19 +32,7 @@
     </div>
 </div>
 
-<div>
-    <label>Gambar</label>
-    <input type="file" 
-           name="foto" 
-           class="form-control @error('foto') is-invalid @enderror">
-        @error('foto')
-            <div class="invalid-feedback d-block">
-                {{ $message }}
-            </div>
-        @enderror
-    </div>
-
-<div>
+<div class="mb-3">
     <label>Nama Produk</label><br>
     <input type="text" name="name"
            class="form-control @error('name') is-invalid @enderror"
@@ -56,7 +44,7 @@
     @enderror
 </div>
 
-<div>
+<div class="mb-3">
     <label>Harga Beli</label><br>
     <input type="number" name="purchase_price"
            class="form-control @error('purchase_price') is-invalid @enderror"
@@ -68,7 +56,7 @@
     @enderror
 </div>
 
-<div>
+<div class="mb-3">
     <label>Harga Jual</label><br>
     <input type="number" name="selling_price"
            class="form-control @error('selling_price') is-invalid @enderror"
@@ -80,7 +68,7 @@
     @enderror
 </div>
 
-<div>
+<div class="mb-3">
     <label>Stok</label><br>
     <input type="number" name="stock"
            class="form-control @error('stock') is-invalid @enderror"
@@ -93,6 +81,7 @@
 </div>
 
 <button class="btn btn-success mt-3" type="submit">Simpan</button>
+<a href="{{ route('produk.index') }}" class="btn btn-secondary mt-3">Kembali</a>
 
 <script>
 function previewImage(input) {
@@ -104,6 +93,8 @@ function previewImage(input) {
         reader.onload = function(e) {
             preview.src = e.target.result;
             preview.style.display = 'block'; 
+        }
+        reader.readAsDataURL(input.files[0]);
     }        
 }
 </script>
