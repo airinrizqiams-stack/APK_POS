@@ -21,10 +21,10 @@ class ItemPenjualan extends Model
 
     public function produk()
     {
-        return $this->belongTo(Produk::class, 'produk_id');
+        return $this->belongsTo(Produk::class, 'produk_id');
     }
     public function penjualan()
     {
-        return $this->belongTo(Penjualan::class, 'penjualan_id');
+        return $this->belongsTo(Penjualan::class, 'penjualan_id');
     }
 }

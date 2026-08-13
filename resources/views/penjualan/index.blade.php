@@ -43,7 +43,7 @@
       <th scope="row">{{ $sales->firstItem() + $loop->index }}</th>
       <td>{{$sale->created_at->translatedFormat('d-m-Y H:i:s')}}</td>
       <td>{{$sale->user->name}}</td>
-      <td>Rp.{{$sale->total_pembayaran}}</td>
+      <td>Rp.{{number_format($sale->total_pembayaran)}}</td>
       <td>{{$sale->metode_pembayaran }}</td>
       <td>{{$sale->status}}</td>
       <td class="d-flex gap-1">
