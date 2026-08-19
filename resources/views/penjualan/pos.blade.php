@@ -11,7 +11,7 @@
 @endif
 
 <h4 class="mb-3">
-    Tambah Penjualan
+    {{ isset($mode) && $mode == 'edit' ? 'Edit Penjualan' : 'Tambah Penjualan' }}
 </h4>
 
 <div class="row">
@@ -39,13 +39,7 @@
                         <div class="col-7">
                             <button type="submit" class="btn btn-outline-primary w-100 text-start p-2" {{ $sale->status === 'COMPLETED' ? 'disabled' : '' }}>
                                 <div class="d-flex align-items-center gap-2">
-                                    {{-- Gambar produk --}}
-                                    <img src="{{ asset('storage/'.$product->foto) }}"
-                                        alt="Gambar"
-                                        class="rounded-circle"
-                                        style="width:45px; height:45px; object-fit:cover;">
-
-                                    {{-- Nama & harga --}}
+                                    {{-- Nama & harga tanpa gambar --}}
                                     <div>
                                         <div class="fw-semibold">{{ $product->nama }}</div>
                                         <small class="text-muted">{{ number_format($product->harga_jual) }}</small>
@@ -89,22 +83,27 @@
                             <td>
                                 <form method="POST" action="{{ route('itempenjualan.update', $item->id) }}">
                                     @csrf @method('PUT')
+                                    {{-- PERBAIKAN 1: Menambahkan onchange agar otomatis tersimpan saat angka diganti --}}
                                     <input type="number" name="quantity"
                                            value="{{ $item->kuantitas }}"
                                            class="form-control form-control-sm"
+                                           onchange="this.form.submit()">
                                 </form>
                             </td>
                             <td>Rp {{ number_format($item->subtotal) }}</td>
                             <td>
-                                <form method="POST" action="{{ route('itempenjualan.update', $item->id) }}">
+                                @can('delete', $item)
+                                {{-- PERBAIKAN 2: Mengubah route action dari update menjadi destroy --}}
+                                <form method="POST" action="{{ route('itempenjualan.destroy', $item->id) }}">
                                     @csrf @method('DELETE')
                                     <button class="btn btn-danger btn-sm">Hapus</button>
                                 </form>
+                                @endcan
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4" class="text-center text-muted">
+                            <td colspan="5" class="text-center text-muted">
                                 Keranjang kosong
                             </td>
                         </tr>
@@ -113,7 +112,8 @@
             </table>
 
             <div class="card-footer">
-                    <strong>Rp {{ number_format($sale->total_pembayaran) }}</strong>
+                {{-- PERBAIKAN 3: Memaksa hitung langsung akumulasi dari database keranjang agar selalu akurat --}}
+                <strong>Rp {{ number_format($sale->itemPenjualan->sum('subtotal')) }}</strong>
 
                 <form method="POST"
                     action="{{ route('penjualan.update', $sale->id) }}"
@@ -130,6 +130,7 @@
                         Checkout
                     </button>
                 </form>
+                @can('delete', $sale)
                 <form action="{{ route('penjualan.destroy', $sale->id) }}"
                     method="POST"
                     onsubmit="return confirm('Yakin ingin membatalkan transaksi?')">
@@ -140,6 +141,7 @@
                         Batalkan Transaksi
                     </button>
                 </form>
+                @endcan
             </div>
         </div>
     </div>

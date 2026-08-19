@@ -34,7 +34,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::all();
+        $roles = Role::all()->unique('name');
         return view('users.create', compact('roles'));
     }
 
@@ -51,7 +51,7 @@ class UserController extends Controller
         // Langsung masukkan $dataReq yang sudah valid
         User::create($dataReq);
 
-        return redirect()->route('users.index')->with('success', 'User berhasil dibuat');
+        return redirect()->route('admin.users')->with('success', 'User berhasil dibuat');
     }
 
     /**
@@ -67,7 +67,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $roles = Role::all();
+        $roles = Role::all()->unique('name');
         return view('users.edit', compact('user', 'roles'));
     }
 
