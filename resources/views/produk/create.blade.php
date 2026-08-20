@@ -8,6 +8,6 @@
 <form action="{{ route('produk.store') }}"
       method="POST"
       enctype="multipart/form-data">
-@include('Produk._form')
+@include('produk._form')
 </form>
 @endsection
