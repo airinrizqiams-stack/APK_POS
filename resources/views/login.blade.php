@@ -11,11 +11,11 @@
 
 <style>
     :root {
-        --color-primary: #607274;
-        --color-bg: #FAEED1;
-        --color-card: #FFFFFF;
-        --color-muted: #B2A59B;
-        --color-border: #DED0B6;
+        --color-bg: #E4E0E1;
+        --color-card: #D6C0B3;
+        --color-primary: #493628;
+        --color-border: #AB886D;
+        --color-muted: #6B5B52;
     }
 
     body {
@@ -32,10 +32,10 @@
     }
 
     .login-card {
-        background: var(--color-card);
+        background: #FFFFFF;
         border: 1px solid var(--color-border);
         border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(96, 114, 116, 0.1);
+        box-shadow: 0 10px 30px rgba(73, 54, 40, 0.08);
         width: 100%;
         max-width: 420px;
         padding: 2.5rem 2rem;
@@ -63,53 +63,49 @@
         font-size: 0.85rem;
         text-transform: uppercase;
         letter-spacing: 0.5px;
+        display: block;
+        text-align: left;
     }
 
-    /* Input & Group Customization */
-    .input-group-custom {
-        position: relative;
-        display: flex;
-        align-items: center;
-        width: 100%;
-    }
-
+    /* Input Customization */
     .form-control-custom {
         border: 1.5px solid var(--color-border);
         border-radius: 8px !important;
-        padding: 0.65rem 3rem 0.65rem 1rem; /* Ruang ekstra di kanan untuk tombol mata */
         font-size: 0.95rem;
         background-color: #FAFAFA;
-        width: 100%;
+        width: 100% !important;
+        height: 45px !important;
         outline: none;
         transition: all 0.2s ease;
+        display: block;
     }
 
     .form-control-custom:focus {
-        border-color: var(--color-primary);
-        box-shadow: 0 0 0 0.25rem rgba(96, 114, 116, 0.15);
+        border-color: var(--color-primary) !important;
+        box-shadow: 0 0 0 0.25rem rgba(73, 54, 40, 0.15) !important;
         background-color: #FFFFFF;
     }
 
-    /* Toggle Password Button (Perbaikan Posisi Tengah) */
+    /* Toggle Password Button */
     .btn-toggle-password {
-        position: absolute;
-        right: 12px;
-        top: 50%;
-        transform: translateY(-50%);
-        background: none;
-        border: none;
-        color: var(--color-muted);
-        padding: 0;
-        font-size: 1.25rem;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 10;
+        position: absolute !important;
+        right: 15px !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        background: transparent !important;
+        border: none !important;
+        color: var(--color-muted) !important;
+        padding: 0 !important;
+        font-size: 1.3rem !important;
+        cursor: pointer !important;
+        z-index: 999 !important;
+        line-height: 1 !important;
+        height: auto !important;
+        width: auto !important;
     }
 
     .btn-toggle-password:hover {
-        color: var(--color-primary);
+        color: var(--color-primary) !important;
     }
 
     /* Button Style */
@@ -126,7 +122,7 @@
     }
 
     .btn-submit:hover {
-        background-color: #4d5c5e;
+        background-color: #35271d;
         color: #FFFFFF;
     }
 
@@ -151,19 +147,19 @@
             @csrf 
             
             <!-- Input Email -->
-            <div class="mb-3">
+            <div class="mb-3" style="text-align: left;">
                 <label for="exampleInputEmail1" class="form-label">Alamat Email</label>
-                <input type="email" name="email" class="form-control-custom" id="exampleInputEmail1" placeholder="nama@perusahaan.com" value="{{ old('email') }}">
+                <input type="email" name="email" class="form-control-custom" id="exampleInputEmail1" placeholder="nama@perusahaan.com" value="{{ old('email') }}" style="padding: 0.65rem 1rem;">
                 @error('email')
                     <div class="error-feedback">⚠️ {{ $message }}</div>
                 @enderror
             </div>
 
             <!-- Input Password dengan Tombol Mata -->
-            <div class="mb-4">
+            <div class="mb-4" style="text-align: left;">
                 <label for="exampleInputPassword1" class="form-label">Kata Sandi</label>
-                <div class="input-group-custom">
-                    <input type="password" name="password" class="form-control-custom" id="exampleInputPassword1" placeholder="Masukkan kata sandi">
+                <div style="position: relative; width: 100%; display: block;">
+                    <input type="password" name="password" class="form-control-custom" id="exampleInputPassword1" placeholder="Masukkan kata sandi" style="padding: 0.65rem 3rem 0.65rem 1rem;">
                     <button type="button" class="btn-toggle-password" id="togglePassword">
                         <i class="bi bi-eye" id="eyeIcon"></i>
                     </button>
@@ -179,26 +175,25 @@
     </div>
 </div>
 
-<!-- JavaScript untuk Toggle Intip Password -->
 <script>
-    document.getElementById('togglePassword').addEventListener('click', function () {
+    document.addEventListener("DOMContentLoaded", function() {
+        const toggleBtn = document.getElementById('togglePassword');
         const passwordInput = document.getElementById('exampleInputPassword1');
         const eyeIcon = document.getElementById('eyeIcon');
-        
-        // Cek tipe input saat ini
-        if (passwordInput.type === 'password') {
-            passwordInput.type = 'text';
-            // Ubah ikon menjadi mata dicoret
-            eyeIcon.classList.remove('bi-eye');
-            eyeIcon.classList.add('bi-eye-slash');
-        } else {
-            passwordInput.type = 'password';
-            // Ubah ikon kembali ke mata biasa
-            eyeIcon.classList.remove('bi-eye-slash');
-            eyeIcon.classList.add('bi-eye');
+
+        if(toggleBtn && passwordInput) {
+            toggleBtn.addEventListener('click', function () {
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    eyeIcon.classList.remove('bi-eye');
+                    eyeIcon.classList.add('bi-eye-slash');
+                } else {
+                    passwordInput.type = 'password';
+                    eyeIcon.classList.remove('bi-eye-slash');
+                    eyeIcon.classList.add('bi-eye');
+                }
+            });
         }
     });
 </script>
-
-<!-- batas Akhir isi konten -->
 @endsection

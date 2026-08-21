@@ -11,11 +11,11 @@
 
 <style>
     :root {
-        --color-primary: #607274;
-        --color-bg: #FAEED1;
+        --color-bg: #E4E0E1;
         --color-card: #FFFFFF;
-        --color-muted: #B2A59B;
-        --color-border: #DED0B6;
+        --color-primary: #493628;
+        --color-border: #AB886D;
+        --color-muted: #6B5B52;
     }
 
     body {

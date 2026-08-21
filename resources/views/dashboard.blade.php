@@ -1,27 +1,22 @@
-<!-- memanggil file app.blade.php -->
 @extends('layouts.app')
 
-<!-- mengirimkan nilai ke title untuk ditampilkan -->
 @section('title', 'Dashboard')
 
-<!-- batas awal isi konten -->
 @section('content')
 
-<!-- Memaksa isi elemen di dalam navbar agar otomatis masuk rapi ke tengah -->
 <div class="navbar-container-fix">
     @include('layouts.navbar')
 </div>
 
-<!-- Memanggil Bootstrap Icons untuk indikator visual modern -->
 <link rel="stylesheet" href="https://jsdelivr.net">
 
 <style>
     :root {
-        --color-primary: #607274;
-        --color-bg: #FAEED1;
+        --color-bg: #E4E0E1;
         --color-card: #FFFFFF;
-        --color-muted: #B2A59B;
-        --color-border: #DED0B6;
+        --color-primary: #493628;
+        --color-border: #AB886D;
+        --color-muted: #6B5B52;
     }
 
     body {
@@ -30,7 +25,6 @@
         color: #333333;
     }
 
-    /* Menarik tombol logout dan menu navigasi agar sejajar lurus ke dalam (tidak terlalu ke tepi) */
     .navbar-container-fix .container-fluid, 
     .navbar-container-fix .container {
         max-width: 1140px !important;
@@ -39,25 +33,17 @@
         padding-right: 15px !important;
     }
 
-    .navbar-container-fix .navbar {
-        background-color: #FFFFFF !important;
-        border-bottom: 1px solid var(--color-border);
-    }
-
-    /* Pembungkus halaman utama - Diatur sejajar sempurna dengan batas tepi wadah */
     .dashboard-wrapper {
         padding: 2.5rem 15px;
         max-width: 1140px;
         margin: 0 auto;
     }
 
-    /* Penyesuaian Ruang Kepala: Membawa judul teks bergeser agak ketengah */
     .header-section-custom {
-        padding-left: 1rem;
+        padding-left: 0.5rem;
         margin-bottom: 2.5rem;
     }
 
-    /* Hierarki Teks Utama (Bahasa Indonesia) */
     .main-title {
         color: var(--color-primary);
         font-size: 1.8rem;
@@ -71,7 +57,6 @@
         font-weight: 400;
     }
 
-    /* Pembatas Antar Bagian Data */
     .section-title {
         color: var(--color-primary);
         font-size: 1.25rem;
@@ -95,13 +80,12 @@
         gap: 6px;
     }
 
-    /* Pembaruan Visual Kotak Data Ringkasan (Card) */
     .metric-card-custom {
         background: var(--color-card) !important;
         border: 1px solid var(--color-border) !important;
         border-radius: 12px !important;
         padding: 1.25rem;
-        box-shadow: 0 4px 15px rgba(96, 114, 116, 0.05);
+        box-shadow: 0 4px 15px rgba(73, 54, 40, 0.05);
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -124,7 +108,7 @@
     }
 
     .metric-icon-box {
-        background-color: rgba(96, 114, 116, 0.1);
+        background-color: rgba(171, 136, 109, 0.15);
         color: var(--color-primary);
         width: 45px;
         height: 45px;
@@ -135,13 +119,12 @@
         font-size: 1.25rem;
     }
 
-    /* Penataan Wadah Tabel Ringkas */
     .table-card-custom {
         background: var(--color-card);
         border: 1px solid var(--color-border);
         border-radius: 12px;
         padding: 1.25rem;
-        box-shadow: 0 4px 15px rgba(96, 114, 116, 0.05);
+        box-shadow: 0 4px 15px rgba(73, 54, 40, 0.05);
         margin-bottom: 1rem;
     }
 
@@ -167,7 +150,6 @@
         color: #495057;
     }
 
-    /* Warna Elemen Penanda (Badges) */
     .badge-low-stock {
         background-color: #fff3cd;
         color: #856404;
@@ -187,7 +169,7 @@
     }
     
     .badge-best-seller {
-        background-color: rgba(96, 114, 116, 0.1);
+        background-color: rgba(171, 136, 109, 0.15);
         color: var(--color-primary);
         padding: 0.25rem 0.5rem;
         border-radius: 6px;
@@ -197,8 +179,6 @@
 </style>
 
 <div class="dashboard-wrapper">
-    
-    <!-- Bagian Kepala: Judul Utama Sekarang Tergeser Mengikuti Struktur Kotak Konten -->
     <div class="header-section-custom text-start">
         <h1 class="main-title">Ringkasan Hari Ini</h1>
         <p class="main-subtitle">
@@ -207,7 +187,6 @@
     </div>
 
     @can('viewAny', App\Models\User::class)
-    <!-- Ringkasan Penjualan Masuk -->
     <h2 class="section-title"><i class="bi bi-graph-up-arrow"></i> Performa Penjualan</h2>
     <div class="row g-4 mb-2 text-start">
         <div class="col-md-6">
@@ -234,7 +213,6 @@
         </div>
     </div>
 
-    <!-- Status Arus Kas Transaksi -->
     <h2 class="section-title"><i class="bi bi-wallet2"></i> Arus Kas & Status Pembayaran</h2>
     <div class="row g-4 mb-2 text-start">
         <div class="col-md-6">
@@ -262,10 +240,8 @@
     </div>
     @endcan
 
-    <!-- Inventori Produk -->
     <h2 class="section-title"><i class="bi bi-box-seam"></i> Manajemen Inventori Kritis</h2>
     <div class="row g-4">
-        <!-- Daftar Produk Stok Rendah -->
         <div class="col-md-6 text-start">
             <h3 class="subsection-title"><i class="bi bi-arrow-down-right-circle text-warning"></i> Daftar Produk Stok Rendah</h3>
             <div class="table-card-custom">
@@ -300,8 +276,30 @@
                 </div>
             </div>
         </div>
-       <!-- Daftar Produk Habis -->
-            Produk Habis Stok
-            {{ $produkStokHabis->links() }} 
-            Produk Terlaris (Best Seller)
-    @endsection
+
+        <div class="col-md-6 text-start">
+            <h3 class="subsection-title"><i class="bi bi-x-circle text-danger"></i> Produk Habis Stok</h3>
+            <div class="table-card-custom">
+                <div class="table-responsive">
+                    <table class="table table-aesthetic">
+                        <thead>
+                            <tr>
+                                <th width="10%">#</th>
+                                <th>Nama Produk</th>
+                                <th class="text-end">Sisa Stok</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($produkStokHabis as $index => $produk)
+                                <tr>
+                                    <td>{{ $produkStokHabis->firstItem() + $index }}</td>
+                                    <td>{{ $produk->nama }}</td>
+                                    <td class="text-end"><span class="badge-out-of-stock">{{ $produk->stok }} Kosong</span></td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    Seluruh produk berada dalam kondisi stok aman.
+                            @endforelse
+                                    {{ $produkStokHabis->links() }} 
+                                    Produk Terlaris (Best Seller)
+                            @endsection
