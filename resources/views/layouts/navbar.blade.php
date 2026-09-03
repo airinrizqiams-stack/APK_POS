@@ -91,7 +91,7 @@
           <a class="nav-link nav-link-custom {{ Request::is('dashboard') ? 'active' : ''}}" aria-current="page" href="{{ route('dashboard') }}">Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link nav-link-custom {{ Request::is('admin/users') ? 'active' : ''}}" href="{{ route('admin.users') }}">Pengguna</a>
+         <a class="nav-link nav-link-custom {{ Request::is('admin/users*') ? 'active' : ''}}" href="{{ route('admin.users.index') }}">Pengguna</a>
         </li>
         <li class="nav-item">
           <a class="nav-link nav-link-custom {{ Request::is('produk') ? 'active' : ''}}" href="{{ route('produk.index') }}">Produk</a>

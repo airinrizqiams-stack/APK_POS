@@ -179,7 +179,7 @@
                 </a>
             </div>
             <div class="col-md-8">
-                <form action="{{ route('admin.users') }}" method="GET" class="row g-2 justify-content-end">
+                <form action="{{ route('admin.users.index') }}" method="GET" class="row g-2 justify-content-end">
                     <div class="col-sm-8 col-md-7">
                         <input 
                             type="text"

@@ -157,7 +157,7 @@
 <!-- Baris Tombol Submit / Kembali -->
 <div class="d-flex align-items-center gap-2 mt-4">
     <button type="submit" class="btn btn-save-custom"><i class="bi bi-check-lg"></i> Simpan Data</button>
-    <a href="{{ route('admin.users') }}" class="btn btn-back-custom"><i class="bi bi-arrow-left"></i> Kembali</a>
+    <a href="{{ route('admin.users.index') }}" class="btn btn-back-custom"><i class="bi bi-arrow-left"></i> Kembali</a>
 </div>
 
 <!-- JavaScript Interaksi Intip Sandi Khusus Form -->
