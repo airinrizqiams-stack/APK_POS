@@ -9,6 +9,7 @@ use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB; // PERBAIKAN: Menambahkan facade DB untuk cek riwayat transaksi
 
 class ProdukController extends Controller
 {
@@ -74,7 +75,6 @@ class ProdukController extends Controller
      */
     public function show(Produk $produk)
     {
-        // Mengembalikan view detail produk dengan membawa data produk terkait
         return view('produk.show', compact('produk'));
     }
 
@@ -103,22 +103,18 @@ class ProdukController extends Controller
             'harga_beli' => $dataReq['purchase_price'],
             'harga_jual' => $dataReq['selling_price'],
             'stok'       => $dataReq['stock'],
-    ];
+        ];
 
-    // Jika upload foto baru
+        // Jika upload foto baru
         if ($request->hasFile('foto')) {
-
-    // Hapus foto lama (jika ada & memang tersimpan)
-        if (
-            $produk->foto && 
-                Storage::disk('public')->exists($produk->foto)
-            ) {
+            // Hapus foto lama (jika ada & memang tersimpan)
+            if ($produk->foto && Storage::disk('public')->exists($produk->foto)) {
                 Storage::disk('public')->delete($produk->foto);
             }
             
-    // Simpan foto baru
-        $data['foto'] = $request->file('foto')->store('products', 'public');
-    }
+            // Simpan foto baru
+            $data['foto'] = $request->file('foto')->store('products', 'public');
+        }
 
         $produk->update($data);
 
@@ -132,10 +128,22 @@ class ProdukController extends Controller
     {
         $this->authorize('delete', $produk);
 
+        // PERBAIKAN UTAMA: Cek apakah produk ini sudah terikat dengan riwayat transaksi penjualan
+        $terpakai = DB::table('item_penjualan')->where('produk_id', $produk->id)->exists();
+
+        if ($terpakai) {
+            // Gagalkan penghapusan secara sopan dan kirim pesan error kembali ke halaman sebelumnya
+            return back()->with('error', 'Produk tidak bisa dihapus karena sudah memiliki riwayat transaksi penjualan.');
+        }
+
+        // Jika tidak ada di nota penjualan, hapus file foto produk
         if ($produk->foto) {
             Storage::disk('public')->delete($produk->foto);
         }
+
+        // Hapus data produk dari tabel
         $produk->delete();
-            return redirect()->route('produk.index')->with('success', 'Product deleted successfully.');
-        }
+
+        return redirect()->route('produk.index')->with('success', 'Product deleted successfully.');
+    }
 }

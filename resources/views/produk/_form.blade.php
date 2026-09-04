@@ -80,8 +80,15 @@
     @enderror
 </div>
 
-<button class="btn btn-success mt-3" type="submit">Simpan</button>
-<a href="{{ route('produk.index') }}" class="btn btn-secondary mt-3">Kembali</a>
+<!-- PERBAIKAN: Mengganti class tombol agar sinkron dengan CSS Cokelat Interaktif -->
+<div class="d-flex align-items-center gap-2 mt-4 text-start">
+    <button type="submit" class="btn btn-action-custom btn-save-custom">
+        <i class="bi bi-check-lg"></i> Simpan Data
+    </button>
+    <a href="{{ route('produk.index') }}" class="btn btn-action-custom btn-back-custom">
+        ← Kembali
+    </a>
+</div>
 
 <script>
 function previewImage(input) {

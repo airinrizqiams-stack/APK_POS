@@ -195,7 +195,7 @@
                            name="purchase_price" 
                            class="form-control form-control-custom @error('purchase_price') is-invalid @enderror" 
                            value="{{ old('purchase_price') }}"
-                           placeholder="Contoh: 15000">
+                           placeholder="Masukkan Harga Beli">
                     @error('purchase_price')
                         <div class="invalid-feedback d-block mt-1">
                             {{ $message }}
@@ -208,7 +208,7 @@
                            name="selling_price" 
                            class="form-control form-control-custom @error('selling_price') is-invalid @enderror" 
                            value="{{ old('selling_price') }}"
-                           placeholder="Contoh: 20000">
+                           placeholder="Masukkan Harga Jual">
                     @error('selling_price')
                         <div class="invalid-feedback d-block mt-1">
                             {{ $message }}

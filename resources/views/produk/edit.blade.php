@@ -68,6 +68,39 @@
         padding: 2rem;
         box-shadow: 0 4px 15px rgba(73, 54, 40, 0.05);
     }
+
+    .btn-action-custom {
+        font-weight: 600;
+        padding: 0.65rem 1.75rem;
+        border-radius: 8px;
+        transition: all 0.2s ease-in-out;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+    }
+
+    /* Tombol Simpan (TETAP COKELAT SEJAK AWAL) */
+    .btn-save-custom {
+        background-color: var(--color-primary) !important;
+        border: 1.5px solid var(--color-primary) !important;
+        color: #FFFFFF !important;
+    }
+    .btn-save-custom:hover {
+        background-color: #35271d !important;
+        border-color: #35271d !important;
+    }
+
+    /* Tombol Kembali (AWALNYA PUTIH, BERUBAH COKELAT SAAT DIKLIK/HOVER) */
+    .btn-back-custom {
+        background-color: #FFFFFF !important;
+        border: 1.5px solid #5A4B41 !important;
+        color: #5A4B41 !important;
+    }
+    .btn-back-custom:hover, .btn-back-custom:active, .btn-back-custom:focus {
+        background-color: #5A4B41 !important;
+        color: #FFFFFF !important;
+    }
 </style>
 
 <div class="form-wrapper">

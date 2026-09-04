@@ -71,7 +71,7 @@
 
     .form-control-custom:focus {
         border-color: var(--color-primary);
-        box-shadow: 0 0 0 0.25rem rgba(73, 54, 40, 0.15);
+        box-shadow: 0 0 0 0.25rem rgba(73, 54, 40, 0.15) !important;
         background-color: #FFFFFF;
     }
 
@@ -152,37 +152,42 @@
         text-transform: uppercase;
     }
 
-    /* Tombol Aksi Mini (Tema Muted Pastel) */
+    /* ==========================================================================
+       PERBAIKAN CSS TOMBOL AKSI TABEL (BIRU, KUNING, MERAH SESUAI GAMBAR)
+       ========================================================================== */
+    .btn-action-custom {
+        padding: 0.35rem 0.85rem !important;
+        font-size: 0.85rem !important;
+        border-radius: 6px !important;
+        font-weight: 600 !important;
+        border: none !important;
+        display: inline-flex;
+        align-items: center;
+        text-decoration: none !important;
+        transition: opacity 0.2s ease;
+    }
+
+    .btn-action-custom:hover {
+        opacity: 0.85;
+        color: inherit;
+    }
+
+    /* Detail - Biru Cerah */
     .btn-action-detail {
-        background-color: #299ebe !important;
+        background-color: #2b9ebb !important;
         color: #FFFFFF !important;
-        font-weight: 600;
-        font-size: 0.85rem;
-        border-radius: 6px;
-        padding: 0.35rem 0.75rem;
-        border: none;
-        text-decoration: none;
     }
 
+    /* Edit - Kuning Emas */
     .btn-action-edit {
-        background-color: #C29B6C !important;
-        color: #FFFFFF !important;
-        font-weight: 600;
-        font-size: 0.85rem;
-        border-radius: 6px;
-        padding: 0.35rem 0.75rem;
-        border: none;
-        text-decoration: none;
+        background-color: #ffc107 !important;
+        color: #212529 !important;
     }
 
+    /* Hapus - Merah Cerah */
     .btn-action-delete {
-        background-color: #A94A4A !important;
+        background-color: #dc3545 !important;
         color: #FFFFFF !important;
-        font-weight: 600;
-        font-size: 0.85rem;
-        border-radius: 6px;
-        padding: 0.35rem 0.75rem;
-        border: none;
     }
 </style>
 
@@ -259,34 +264,35 @@
                             <span class="badge-status-completed"><i class="bi bi-check-circle"></i> {{ $sale->status }}</span>
                         </td>
                         <td>
-                            <div class="d-flex align-items-center gap-2">
-                                <a href="{{ route('penjualan.show', $sale->id) }}" class="btn btn-action-detail">
-                                    <i class="bi bi-eye"></i> Detail
+                            <!-- PERBAIKAN: Penyesuaian class tombol aksi operasional tabel -->
+                            <div class="d-flex align-items-center gap-1">
+                                <a href="{{ route('penjualan.show', $sale->id) }}" class="btn-action-custom btn-action-detail">
+                                    Detail
                                 </a>
                                 
-                                @can('view', $sale)
-                                    <a href="{{ route('penjualan.edit', $sale) }}" class="btn btn-action-edit">
-                                        <i class="bi bi-pencil-square"></i> Edit
-                                    </a>
-                                @endcan
-                                
-                                @can('delete', $sale)
-                                <!-- Menggunakan Type Submit HTML Murni yang Anti-Gagal untuk Tombol Hapus -->
-                                <form action="{{ route('penjualan.destroy', $sale) }}" method="POST" class="d-inline m-0">
+                                <a href="{{ route('penjualan.edit', $sale->id) }}" class="btn-action-custom btn-action-edit">
+                                    Edit
+                                </a>
+
+                                <form action="{{ route('penjualan.destroy', $sale->id) }}" method="POST" onsubmit="return confirm('Apakah anda yakin ingin menghapus data ini?')" class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-action-delete" onclick="return confirm('Apakah Anda yakin ingin menghapus transaksi penjualan ini?')">
-                                        <i class="bi bi-trash"></i> Hapus
+                                    <button type="submit" class="btn-action-custom btn-action-delete">
+                                        Hapus
                                     </button>
                                 </form>
-                                @endcan
                             </div>
                         </td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="7" class="text-muted text-center py-5">
-                              Data transaksi penjualan tidak ditemukan.
+                        <td colspan="7" class="text-center text-muted">Data transaksi penjualan tidak ditemukan.</td>
+                    </tr>
                     @endforelse
-                              {{ $sales->links() }}
-                @endsection
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination Link -->
+          {{ $sales->links() }}
+@endsection

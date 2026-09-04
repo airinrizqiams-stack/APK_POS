@@ -26,6 +26,8 @@ class UserController extends Controller
         } else {
             $users = User::query()->paginate(10)->withQueryString();
         }
+        
+        // KEMBALIKAN KE: 'users.index' karena folder Anda tidak pakai subfolder admin
         return view('users.index', compact('users'));
     }
 
@@ -35,6 +37,8 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::all()->unique('name');
+        
+        // KEMBALIKAN KE: 'users.create' karena folder Anda tidak pakai subfolder admin
         return view('users.create', compact('roles'));
     }
 
@@ -45,13 +49,14 @@ class UserController extends Controller
     {
         $dataReq = $request->validated();
 
-        // PERBAIKAN: Enkripsi password langsung di dalam array yang divalidasi
+        // Enkripsi password langsung di dalam array yang divalidasi
         $dataReq['password'] = Hash::make($dataReq['password']);
 
         // Langsung masukkan $dataReq yang sudah valid
         User::create($dataReq);
 
-        return redirect()->route('admin.users')->with('success', 'User berhasil dibuat');
+        // TETAP DI SINI: Route name Anda adalah 'admin.users.index' (Berdasarkan info log error Anda)
+        return redirect()->route('admin.users.index')->with('success', 'User berhasil dibuat');
     }
 
     /**
@@ -63,11 +68,13 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for creating a new resource.
      */
     public function edit(User $user)
     {
         $roles = Role::all()->unique('name');
+        
+        // KEMBALIKAN KE: 'users.edit' karena folder Anda tidak pakai subfolder admin
         return view('users.edit', compact('user', 'roles'));
     }
 
@@ -82,7 +89,6 @@ class UserController extends Controller
         $user->email   = $dataReq['email'];
         $user->role_id = $dataReq['role_id'];
 
-        // Cek apakah password diisi atau tidak
         if (!empty($dataReq['password'])) {
             $user->password = Hash::make($dataReq['password']);
         }

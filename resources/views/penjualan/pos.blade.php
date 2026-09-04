@@ -89,30 +89,25 @@
     .btn-product-item {
         background-color: transparent !important;
         border: 1.5px solid var(--color-border) !important;
-        border-radius: 8px !important;
+        border-radius: 8px 0 0 8px !important;
         color: var(--color-primary) !important;
         padding: 0.75rem 1rem !important;
         transition: all 0.2s ease;
         text-decoration: none;
     }
-    
-    .btn-product-item:hover:not([disabled]) {
-        background-color: rgba(171, 136, 109, 0.1) !important;
-        transform: translateY(-1px);
-    }
 
     .btn-add-cart {
         background-color: var(--color-primary) !important;
-        border: none !important;
+        border: 1.5px solid var(--color-primary) !important;
         color: #FFFFFF !important;
         font-weight: 700;
-        border-radius: 8px !important;
-        height: 45px;
+        border-radius: 0 8px 8px 0 !important;
         transition: background-color 0.2s ease;
     }
 
     .btn-add-cart:hover:not([disabled]) {
         background-color: #35271d !important;
+        border-color: #35271d !important;
     }
 
     .table-aesthetic {
@@ -150,9 +145,9 @@
         color: #FFFFFF !important;
         font-weight: 700;
         border-radius: 8px !important;
-        padding: 0.7rem 1rem;
+        padding: 0.75rem 1rem;
         border: none;
-        transition: background-color 0.2s ease;
+        transition: all 0.2s ease;
     }
     .btn-checkout-custom:hover:not([disabled]) {
         background-color: #1e7e34 !important;
@@ -164,7 +159,7 @@
         color: #dc3545 !important;
         font-weight: 600;
         border-radius: 8px !important;
-        padding: 0.65rem 1rem;
+        padding: 0.75rem 1rem;
         transition: all 0.2s ease;
     }
     .btn-cancel-custom:hover:not([disabled]) {
@@ -175,8 +170,10 @@
         background-color: #f8d7da !important;
         color: #721c24 !important;
         border: none;
-        padding: 0.35rem 0.6rem;
+        padding: 0.4rem 0.75rem;
         border-radius: 6px;
+        font-weight: 600;
+        font-size: 0.85rem;
         transition: all 0.2s ease;
     }
     .btn-delete-item:hover {
@@ -195,7 +192,7 @@
 
     <div class="header-section">
         <h1 class="main-title">
-            {{ isset($mode) && $mode == 'edit' ? 'Ubah Transaksi Penjualan' : 'Entri Transaksi Baru (POS)' }}
+            {{ request()->is('*/edit') ? 'Ubah Transaksi Penjualan' : 'Entri Transaksi Baru (POS)' }}
         </h1>
         <p class="main-subtitle">Pilih produk katalog, atur jumlah kuantitas belanja, dan proses pembayaran konsumen</p>
     </div>
@@ -210,13 +207,13 @@
                 </div>
                 <div class="card-body-custom">
                     <div class="mb-4">
-                        <form method="GET" action="{{ route('penjualan.create') }}">
+                        <form method="GET" action="{{ url()->current() }}">
                             <div class="position-relative">
                                 <input type="text"
                                        name="search"
                                        value="{{ request('search') }}"
                                        class="form-control-custom w-100"
-                                       placeholder="Cari nama produk di sini..."
+                                       placeholder="Cari produk..."
                                        style="padding-left: 2.5rem !important;"
                                        onkeyup="this.form.submit()">
                                 <i class="bi bi-search position-absolute text-muted" style="left: 15px; top: 50%; transform: translateY(-50%);"></i>
@@ -226,21 +223,17 @@
                     
                     <div style="max-height: 52vh; overflow-y: auto; padding-right: 4px;">
                         @foreach($products as $product)
-                            <form method="POST" action="{{ route('itempenjualan.store') }}" class="row g-2 mb-3 align-items-center">
+                            <form method="POST" action="{{ route('itempenjualan.store') }}" class="mb-3">
                                 @csrf
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
-
-                                <div class="col-7">
-                                    <button type="button" class="btn btn-product-item w-100 text-start" disabled>
-                                        <span class="fw-bold d-block" style="font-size: 0.95rem;">{{ $product->nama }}</span>
-                                        <span class="text-muted" style="font-size: 0.85rem;">Rp {{ number_format($product->harga_jual, 0, ',', '.') }}</span>
+                                
+                                <div class="input-group">
+                                    <button type="button" class="btn btn-product-item flex-grow-1 text-start" disabled style="background-color: #FFFFFF !important;">
+                                        <span class="fw-bold d-block" style="color: var(--color-primary);">{{ $product->nama }}</span>
+                                        <span class="text-muted small">Rp {{ number_format($product->harga_jual, 0, ',', '.') }}</span>
                                     </button>
-                                </div>
-                                <div class="col-3">
-                                    <input type="number" name="qty" value="1" min="1" class="form-control form-control-custom text-center" {{ $sale->status === 'COMPLETED' ? 'disabled' : '' }}>
-                                </div>
-                                <div class="col-2">
-                                    <button type="submit" class="btn btn-add-cart w-100" {{ $sale->status === 'COMPLETED' ? 'disabled' : '' }}>
+                                    <input type="number" name="qty" value="1" min="1" class="form-control form-control-custom text-center" style="max-width: 70px; border-radius: 0 !important; border-left: none; border-right: none;" {{ (isset($sale) && $sale->status === 'COMPLETED') ? 'disabled' : '' }}>
+                                    <button type="submit" class="btn btn-add-cart px-3" {{ (isset($sale) && $sale->status === 'COMPLETED') ? 'disabled' : '' }}>
                                         <i class="bi bi-plus-lg"></i>
                                     </button>
                                 </div>
@@ -257,48 +250,51 @@
                 <div class="card-header-custom">
                     <i class="bi bi-cart3"></i> Keranjang Belanja Item Transaksi
                 </div>
-                <div class="card-body-custom p-0" style="max-height: 40vh; overflow-y: auto;">
-                    <table class="table table-aesthetic align-middle">
-                        <thead>
-                            <tr>
-                                <th>Produk</th>
-                                <th>Harga</th>
-                                <th>Subtotal</th>
-                                <th class="text-center">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($sale->itemPenjualan as $item)
+                <div class="card-body-custom p-0">
+                    
+                    <div style="max-height: 38vh; overflow-y: auto;">
+                        <table class="table table-aesthetic">
+                            <thead>
                                 <tr>
-                                    <td>{{ $item->produk->nama }}</td>
-                                    <td>Rp {{ number_format($item->produk->harga_jual, 0, ',', '.') }}</td>
-                                    <td>Rp {{ number_format($item->subtotal, 0, ',', '.') }}</td>
-                                    <td class="text-center">
-                                        @can('delete', $item)
-                @csrf
-                @method('DELETE') 
-                Hapus
-                @endcan
-                @empty
-                Keranjang belanja saat ini masih kosong
-                @endforelse
-                Jumlah Total Tagihan:
-                Rp {{ number_format($sale->itemPenjualan->sum('subtotal'), 0, ',', '.') }}
-                @csrf
-                @method('PUT')
-                Pilih Metode Pembayaran
-                Tunai (Cash)
-                QRIS / Digital Pay
-                <button type="submit" class="btn btn-checkout-custom w-100 d-flex align-items-center 
-                justify-content-center gap-2" {{ $sale->status === 'COMPLETED' ? 'disabled' : '' }} 
-                style="height: 45px;"> 
-                Proses Selesai (Checkout)
-                @can('delete', $sale)
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-cancel-custom w-100 d-flex align-items-center 
-                justify-content-center gap-2" {{ $sale->status === 'COMPLETED' ? 'disabled' : '' }} 
-                style="height: 45px;" onclick="return confirm('Batalkan seluruh transaksi ini?')"> 
-                Batalkan Sesi Transaksi
-                @endcan
-                @endsection
+                                    <th>Produk</th>
+                                    <th class="text-center" style="width: 80px;">Qty</th>
+                                    <th class="text-end">Subtotal</th>
+                                    <th class="text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if(isset($sale) && isset($sale->items) && count($sale->items) > 0)
+                                    @foreach($sale->items as $item)
+                                        <tr>
+                                            <td>
+                                                <span class="fw-bold d-block" style="color: var(--color-primary);">{{ $item->product->nama }}</span>
+                                                <small class="text-muted">Rp {{ number_format($item->harga_jual, 0, ',', '.') }}</small>
+Rp {{ number_format($item->subtotal, 0, ',', '.') }}
+
+@endforeach
+@else
+
+Belum ada item di keranjang.
+
+@endif
+
+{{-- Bagian Kotak Total dan Tombol Pembayaran --}}
+
+Total Tagihan:
+
+Rp {{ isset($sale) && isset($sale->total_harga) ? number_format($sale->total_harga, 0, ',', '.') : '0' }}
+
+Pilih Pembayaran
+Tunai (Cash)
+QRIS
+Digital Pay
+
+@csrf
+<button type="submit" class="btn btn-checkout-custom w-100 shadow-sm" {{ !isset($sale) || $sale->status === 'COMPLETED' || empty($sale->items) || count($sale->items) == 0 ? 'disabled' : '' }}>
+Checkout
+
+@csrf
+<button type="submit" class="btn btn-cancel-custom w-100" {{ !isset($sale) || $sale->status === 'COMPLETED' ? 'disabled' : '' }}>
+Batalkan Transaksi
+
+@endsection

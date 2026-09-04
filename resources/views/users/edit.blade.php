@@ -68,6 +68,45 @@
         padding: 2rem;
         box-shadow: 0 4px 15px rgba(73, 54, 40, 0.05);
     }
+
+    /* ==========================================================================
+       PERBAIKAN CSS TOMBOL INTERAKTIF (PUTIH KE COKELAT)
+       ========================================================================== */
+    .btn-interactive-custom {
+        background-color: #FFFFFF !important;
+        font-weight: 600;
+        padding: 0.65rem 1.5rem;
+        border-radius: 8px;
+        transition: all 0.2s ease-in-out;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+    }
+
+    /* Tombol Simpan (Default: Border & Teks Cokelat Tua) */
+    .btn-simpan {
+        border: 1.5px solid var(--color-primary) !important;
+        color: var(--color-primary) !important;
+    }
+
+    /* Tombol Simpan (Hover/Active: Latar Cokelat Tua, Teks Putih) */
+    .btn-simpan:hover, .btn-simpan:active, .btn-simpan:focus {
+        background-color: var(--color-primary) !important;
+        color: #FFFFFF !important;
+    }
+
+    /* Tombol Kembali (Default: Border & Teks Cokelat Pudar) */
+    .btn-kembali {
+        border: 1.5px solid #5A4B41 !important;
+        color: #5A4B41 !important;
+    }
+
+    /* Tombol Kembali (Hover/Active: Latar Cokelat Pudar, Teks Putih) */
+    .btn-kembali:hover, .btn-kembali:active, .btn-kembali:focus {
+        background-color: #5A4B41 !important;
+        color: #FFFFFF !important;
+    }
 </style>
 
 <div class="form-wrapper">

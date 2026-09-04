@@ -91,13 +91,19 @@
           <a class="nav-link nav-link-custom {{ Request::is('dashboard') ? 'active' : ''}}" aria-current="page" href="{{ route('dashboard') }}">Dashboard</a>
         </li>
         <li class="nav-item">
-         <a class="nav-link nav-link-custom {{ Request::is('admin/users*') ? 'active' : ''}}" href="{{ route('admin.users.index') }}">Pengguna</a>
+          <a class="nav-link nav-link-custom {{ Request::is('admin/users*') ? 'active' : ''}}" href="{{ route('admin.users.index') }}">Pengguna</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link nav-link-custom {{ Request::is('produk') ? 'active' : ''}}" href="{{ route('produk.index') }}">Produk</a>
+          <a class="nav-link nav-link-custom {{ Request::is('produk*') ? 'active' : ''}}" href="{{ route('produk.index') }}">Produk</a>
         </li>
+        
+        {{-- ==================== BERHASIL DIGABUNGKAN DI SINI ==================== --}}
         <li class="nav-item">
-          <a class="nav-link nav-link-custom {{ Request::is('penjualan') ? 'active' : ''}}" href="{{ route('penjualan.index') }}">Penjualan</a>
+          <a class="nav-link nav-link-custom {{ Request::is('jenis*') ? 'active' : '' }}" href="{{ route('jenis.index') }}">Jenis</a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link nav-link-custom {{ Request::is('penjualan*') ? 'active' : ''}}" href="{{ route('penjualan.index') }}">Penjualan</a>
         </li>
       </ul>
       

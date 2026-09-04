@@ -64,35 +64,40 @@
         color: var(--color-primary) !important;
     }
 
-    /* Tombol Operasional Form */
-    .btn-save-custom {
-        background-color: var(--color-primary) !important;
-        border: none !important;
-        color: #FFFFFF !important;
+    /* ==========================================================================
+       PERBAIKAN CSS TOMBOL (SIMPAN TETAP COKELAT, KEMBALI INTERAKTIF PUTIH-COKELAT)
+       ========================================================================== */
+    .btn-action-custom {
         font-weight: 600;
         padding: 0.65rem 1.75rem;
         border-radius: 8px;
-        transition: background-color 0.2s ease;
+        transition: all 0.2s ease-in-out;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+    }
+
+    /* Tombol Simpan (TETAP COKELAT SEJAK AWAL) */
+    .btn-save-custom {
+        background-color: var(--color-primary) !important;
+        border: 1.5px solid var(--color-primary) !important;
+        color: #FFFFFF !important;
     }
     .btn-save-custom:hover {
         background-color: #35271d !important;
+        border-color: #35271d !important;
     }
 
+    /* Tombol Kembali (AWALNYA PUTIH, BERUBAH COKELAT SAAT DIKLIK/HOVER) */
     .btn-back-custom {
-        background-color: transparent !important;
-        border: 1.5px solid var(--color-border) !important;
-        color: var(--color-primary) !important;
-        font-weight: 600;
-        padding: 0.65rem 1.5rem;
-        border-radius: 8px;
-        transition: all 0.2s ease;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
+        background-color: #FFFFFF !important;
+        border: 1.5px solid #5A4B41 !important;
+        color: #5A4B41 !important;
     }
-    .btn-back-custom:hover {
-        background-color: rgba(171, 136, 109, 0.1) !important;
-        color: var(--color-primary) !important;
+    .btn-back-custom:hover, .btn-back-custom:active, .btn-back-custom:focus {
+        background-color: #5A4B41 !important;
+        color: #FFFFFF !important;
     }
 </style>
 
@@ -156,8 +161,12 @@
 
 <!-- Baris Tombol Submit / Kembali -->
 <div class="d-flex align-items-center gap-2 mt-4">
-    <button type="submit" class="btn btn-save-custom"><i class="bi bi-check-lg"></i> Simpan Data</button>
-    <a href="{{ route('admin.users.index') }}" class="btn btn-back-custom"><i class="bi bi-arrow-left"></i> Kembali</a>
+    <button type="submit" class="btn btn-action-custom btn-save-custom">
+        <i class="bi bi-check-lg"></i> Simpan Data
+    </button>
+    <a href="{{ route('admin.users.index') }}" class="btn btn-action-custom btn-back-custom">
+        ← Kembali
+    </a>
 </div>
 
 <!-- JavaScript Interaksi Intip Sandi Khusus Form -->

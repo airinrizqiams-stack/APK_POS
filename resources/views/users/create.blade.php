@@ -164,14 +164,18 @@
                 @enderror
             </div>
 
+            <!-- PERBAIKAN: Mengubah name="role" menjadi name="role_id" dan me-looping data $roles -->
             <div class="mb-4">
                 <label class="form-label-custom">Hak Akses Sistem (Role)</label>
-                <select name="role" class="form-control form-control-custom @error('role') is-invalid @enderror">
+                <select name="role_id" class="form-control form-control-custom @error('role_id') is-invalid @enderror">
                     <option value="" disabled selected>-- Pilih Tingkatan Akses --</option>
-                    <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
-                    <option value="kasir" {{ old('role') == 'kasir' ? 'selected' : '' }}>Kasir</option>
+                    @foreach($roles as $role)
+                        <option value="{{ $role->id }}" {{ old('role_id') == $role->id ? 'selected' : '' }}>
+                            {{ ucfirst($role->name) }}
+                        </option>
+                    @endforeach
                 </select>
-                @error('role')
+                @error('role_id')
                     <div class="invalid-feedback d-block mt-1">{{ $message }}</div>
                 @enderror
             </div>
