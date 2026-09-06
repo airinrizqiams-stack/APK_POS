@@ -23,11 +23,6 @@
 </style>
 
 <div class="page-wrapper text-start">
-    @if(session('success'))
-        <div class="alert alert-success border-0 mb-4 shadow-sm" style="border-radius: 8px;">
-            <i class="bi bi-check-circle-fill me-1"></i> {{ session('success') }}
-        </div>
-    @endif
 
     <div class="row g-4">
         <!-- Form Tambah Jenis -->
@@ -71,7 +66,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="3" class="text-center text-muted py-4">Belum ada data jenis produk.</td>
+                                    <td colspan="3" class="text-center text-muted py-4">Belum ada data jenis product.</td>
                                 </tr>
                             @endforelse
                         </tbody>

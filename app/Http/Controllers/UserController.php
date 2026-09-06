@@ -56,7 +56,7 @@ class UserController extends Controller
         User::create($dataReq);
 
         // TETAP DI SINI: Route name Anda adalah 'admin.users.index' (Berdasarkan info log error Anda)
-        return redirect()->route('admin.users.index')->with('success', 'User berhasil dibuat');
+        return redirect()->route('admin.users.index')->with('success', 'Pengguna berhasil dibuat');
     }
 
     /**

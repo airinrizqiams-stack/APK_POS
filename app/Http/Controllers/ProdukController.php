@@ -9,7 +9,7 @@ use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\DB; // PERBAIKAN: Menambahkan facade DB untuk cek riwayat transaksi
+use Illuminate\Support\Facades\DB; 
 
 class ProdukController extends Controller
 {
@@ -67,7 +67,7 @@ class ProdukController extends Controller
 
         Produk::create($data);
 
-        return redirect()->route('produk.index')->with('success', 'Product created successfully.');
+        return redirect()->route('produk.index')->with('success', 'Produk berhasil dibuat.');
     }
 
     /**
@@ -118,7 +118,7 @@ class ProdukController extends Controller
 
         $produk->update($data);
 
-        return redirect()->route('produk.index')->with('success', 'Product updated successfully.');
+        return redirect()->route('produk.index')->with('success', 'Produk berhasil diperbarui.');
     }
 
     /**

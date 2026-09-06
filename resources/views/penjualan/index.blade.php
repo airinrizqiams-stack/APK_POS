@@ -247,7 +247,7 @@
                         <th>Total Pembayaran</th>
                         <th>Metode</th>
                         <th>Status</th>
-                        <th width="22%">Aksi Operasional</th>
+                        <th width="22%" class="text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -269,11 +269,12 @@
                                 <a href="{{ route('penjualan.show', $sale->id) }}" class="btn-action-custom btn-action-detail">
                                     Detail
                                 </a>
-                                
+                                @can('update', $sale)
                                 <a href="{{ route('penjualan.edit', $sale->id) }}" class="btn-action-custom btn-action-edit">
                                     Edit
                                 </a>
-
+                                @endcan
+                                @can('delete', $sale)
                                 <form action="{{ route('penjualan.destroy', $sale->id) }}" method="POST" onsubmit="return confirm('Apakah anda yakin ingin menghapus data ini?')" class="d-inline">
                                     @csrf
                                     @method('DELETE')
@@ -281,6 +282,7 @@
                                         Hapus
                                     </button>
                                 </form>
+                                @endcan
                             </div>
                         </td>
                     </tr>

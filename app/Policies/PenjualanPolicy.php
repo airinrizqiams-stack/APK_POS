@@ -18,4 +18,18 @@ class PenjualanPolicy
         return $user->role->name === 'admin'
         && $penjualan->status === 'OPEN';
     }
+    public function update(User $user, Penjualan $penjualan): bool 
+    {
+        // Hanya bisa diedit jika status masih OPEN
+        if ($penjualan->status !== 'OPEN') {
+            return false;
+        }
+
+        // Admin atau Kasir pemilik transaksi yang berhak mengedit
+        if ($user->role?->name === 'admin') {
+            return true;
+        }
+
+        return $user->role?->name === 'kasir' && $penjualan->user_id === $user->id;
+    }
 }

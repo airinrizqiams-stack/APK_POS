@@ -236,7 +236,7 @@
                         <th>Harga Beli</th>
                         <th>Harga Jual</th>
                         <th>Sisa Stok</th>
-                        <th width="22%">Aksi Operasional</th>
+                        <th width="22%" class="text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -272,7 +272,6 @@
                                 @endcan
                                 
                                 @can('delete', $product)
-                                <!-- KODE PERBAIKAN TOTAL: Form murni dengan type="submit" dan konfirmasi asli HTML -->
                                 <form action="{{ route('produk.destroy', $product) }}" method="POST" class="d-inline m-0">
                                     @csrf
                                     @method('DELETE')
@@ -285,8 +284,21 @@
                         </td>
                     </tr>
                     @empty
+                    <tr>
+                        <td colspan="8" class="text-center py-4">
+                            Data produk tidak tersedia atau tidak ditemukan.
+                        </td>
                     </tr>
-                        Data produk tidak tersedia atau tidak ditemukan.
                     @endforelse
-                        {{ $products->links() }}
-                    @endsection
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination diletakkan di bawah tabel di dalam card -->
+        <div class="mt-4">
+            {{ $products->links() }}
+        </div>
+
+    </div>
+</div>
+@endsection

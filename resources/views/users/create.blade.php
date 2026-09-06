@@ -147,7 +147,7 @@
                        name="email" 
                        class="form-control form-control-custom @error('email') is-invalid @enderror" 
                        value="{{ old('email') }}"
-                       placeholder="nama@perusahaan.com">
+                       placeholder="Masukkan Email">
                 @error('email')
                     <div class="invalid-feedback d-block mt-1">{{ $message }}</div>
                 @enderror
@@ -158,7 +158,7 @@
                 <input type="password" 
                        name="password" 
                        class="form-control form-control-custom @error('password') is-invalid @enderror" 
-                       placeholder="Masukkan kata sandi minimal 8 karakter">
+                       placeholder="Masukkan Kata Sandi minimal 8 karakter">
                 @error('password')
                     <div class="invalid-feedback d-block mt-1">{{ $message }}</div>
                 @enderror

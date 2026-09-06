@@ -45,23 +45,31 @@
         font-weight: 500;
     }
 
-    /* CSS Tambahan Tombol Mata */
+    /* Wadah Relatif Khusus Password */
+    .password-wrapper-custom {
+        position: relative !important;
+        width: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+
+    /* CSS Tombol Mata SVG Modern */
     .btn-toggle-password-custom {
         position: absolute !important;
         right: 15px !important;
-        top: 50% !important;
-        transform: translateY(-50%) !important;
         background: transparent !important;
         border: none !important;
-        color: var(--color-muted) !important;
         padding: 0 !important;
-        font-size: 1.25rem !important;
         cursor: pointer !important;
-        z-index: 10 !important;
-        line-height: 1 !important;
+        z-index: 99 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        height: auto !important;
+        width: auto !important;
     }
-    .btn-toggle-password-custom:hover {
-        color: var(--color-primary) !important;
+    .btn-toggle-password-custom:hover svg {
+        fill: var(--color-primary) !important;
     }
 
     /* ==========================================================================
@@ -109,7 +117,7 @@
            placeholder="Masukkan nama lengkap pengguna"
            value="{{ old('name', $user->name ?? '') }}">
     @error('name')
-        <div class="feedback-error-custom"><i class="bi bi-exclamation-circle"></i> {{ $message }}</div>
+        <div class="feedback-error-custom">⚠️ {{ $message }}</div>
     @enderror   
 </div>
 
@@ -118,26 +126,32 @@
     <label class="form-label-custom">Alamat Email</label>
     <input type="email" name="email"
            class="form-control-custom @error('email') is-invalid-custom @enderror"
-           placeholder="nama@perusahaan.com"
+           placeholder="Masukkan Email"
            value="{{ old('email', $user->email ?? '' ) }}">
     @error('email')
-        <div class="feedback-error-custom"><i class="bi bi-exclamation-circle"></i> {{ $message }}</div>
+        <div class="feedback-error-custom">⚠️ {{ $message }}</div>
     @enderror
 </div>
 
-<!-- Input Kata Sandi + Fitur Tombol Mata -->
+<!-- Input Kata Sandi + Fitur Tombol Mata SVG Terkoreksi -->
 <div class="mb-4">
     <label class="form-label-custom">Kata Sandi (Password)</label>
-    <div style="position: relative; width: 100%; display: block;">
+    <div class="password-wrapper-custom">
         <input type="password" name="password" id="inputPasswordForm"
                class="form-control-custom @error('password') is-invalid-custom @enderror"
-               placeholder="Masukkan kata sandi minimal 8 karakter" style="padding-right: 3rem !important;">
+               placeholder="{{ isset($user) ? 'Kosongkan jika tidak ingin mengubah kata sandi' : 'Masukkan kata sandi minimal 8 karakter' }}" 
+               style="padding-right: 3rem !important;">
         <button type="button" class="btn-toggle-password-custom" id="togglePasswordForm">
-            <i class="bi bi-eye" id="eyeIconForm"></i>
+            <!-- Tautan XMLNS di bawah ini sekarang sudah diperbaiki dengan benar -->
+            <svg id="eyeIconForm" xmlns="http://w3.org" width="20" height="20" fill="#6B5B52" viewBox="0 0 16 16">
+                <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z"/>
+                <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829"/>
+                <path d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z"/>
+            </svg>
         </button>
     </div>
     @error('password')
-        <div class="feedback-error-custom"><i class="bi bi-exclamation-circle"></i> {{ $message }}</div>
+        <div class="feedback-error-custom">⚠️ {{ $message }}</div>
     @enderror
 </div>
 
@@ -155,14 +169,14 @@
         @endforeach
     </select>
     @error('role_id')
-        <div class="feedback-error-custom"><i class="bi bi-exclamation-circle"></i> {{ $message }}</div>
+        <div class="feedback-error-custom">⚠️ {{ $message }}</div>
     @enderror
 </div>
 
 <!-- Baris Tombol Submit / Kembali -->
 <div class="d-flex align-items-center gap-2 mt-4">
     <button type="submit" class="btn btn-action-custom btn-save-custom">
-        <i class="bi bi-check-lg"></i> Simpan Data
+        Simpan Data
     </button>
     <a href="{{ route('admin.users.index') }}" class="btn btn-action-custom btn-back-custom">
         ← Kembali
@@ -176,16 +190,17 @@
         const passwordInput = document.getElementById('inputPasswordForm');
         const eyeIcon = document.getElementById('eyeIconForm');
 
-        if(toggleBtn && passwordInput) {
+        const eyeOpenPath = `<path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/><path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>`;
+        const eyeSlashPath = `<path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z"/><path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829"/><path d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z"/>`;
+
+        if(toggleBtn && passwordInput && eyeIcon) {
             toggleBtn.addEventListener('click', function () {
                 if (passwordInput.type === 'password') {
                     passwordInput.type = 'text';
-                    eyeIcon.classList.remove('bi-eye');
-                    eyeIcon.classList.add('bi-eye-slash');
+                    eyeIcon.innerHTML = eyeOpenPath;
                 } else {
                     passwordInput.type = 'password';
-                    eyeIcon.classList.remove('bi-eye-slash');
-                    eyeIcon.classList.add('bi-eye');
+                    eyeIcon.innerHTML = eyeSlashPath;
                 }
             });
         }

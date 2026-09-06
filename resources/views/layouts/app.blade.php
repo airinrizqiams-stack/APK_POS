@@ -2,10 +2,12 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <!-- Isi title yang kita kirimkan dari views lain-->
+
     <title>@yield('title')</title>
-    <!-- memanggil Link bootstraps-->
+    
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <link rel="stylesheet" href="https://jsdelivr.net">
 </head>
 <body>
  
@@ -17,7 +19,6 @@
        </div>
     @endif
 
-    <!-- Isi konten yang kita kirimkan dari views lain-->
     @yield('content')
 
 </div>
