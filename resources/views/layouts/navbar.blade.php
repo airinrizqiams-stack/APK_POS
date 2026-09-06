@@ -79,7 +79,7 @@
 
 <nav class="navbar navbar-expand-lg custom-navbar">
   <div class="navbar-container">
-    <a class="navbar-brand navbar-brand-custom" href="#">POS SYSTEM</a>
+    <a class="navbar-brand navbar-brand-custom" href="#">Caffe Airin</a>
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="border-color: var(--nav-border);">
       <span class="navbar-toggler-icon"></span>
