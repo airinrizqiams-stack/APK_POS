@@ -34,8 +34,7 @@ Route::middleware('auth')->group(function() {
         Route::resource('/penjualan', PenjualanController::class);
         Route::resource('/itempenjualan', ItemPenjualanController::class);
         
-        // Manajemen Data Jenis Produk (Gunakan rute POST yang sesuai dengan nama rute di Controller kamu)
         Route::get('/jenis', [JenisController::class, 'index'])->name('jenis.index');
-        Route::post('/jenis', [JenisController::class, 'store'])->name('jenis.store'); // 🔄 Diubah dari /jenis/store ke /jenis agar sinkron dengan redirect()->route('jenis.index')
+        Route::post('/jenis', [JenisController::class, 'store'])->name('jenis.store'); 
     });
 });
