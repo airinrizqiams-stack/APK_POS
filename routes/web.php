@@ -10,7 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\JenisController; 
 
 Route::middleware('guest')->group(function() {
-    Route::get('/login', [AuthController::class, 'index'])->name('login');
+    Route::get('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/auth', [AuthController::class, 'auth'])->name('auth');
 });
 

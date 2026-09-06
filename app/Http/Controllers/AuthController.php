@@ -9,9 +9,9 @@ use App\Http\Controllers\Controller;
 
 class AuthController extends Controller
 {
-    public function index()
+    public function login()
     {
-        return view('login');
+        return view('auth.login');
     }
 
     public function auth(LoginRequest $request)
