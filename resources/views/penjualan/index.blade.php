@@ -275,7 +275,7 @@
                                 </a>
                                 @endcan
                                 @can('delete', $sale)
-                                <form action="{{ route('penjualan.destroy', $sale->id) }}" method="POST" onsubmit="return confirm('Apakah anda yakin ingin menghapus data ini?')" class="d-inline">
+                                <form action="{{ route('penjualan.destroy', $sale->id) }}" method="POST" onsubmit="return confirm('Apakah anda yakin ingin menghapus data ini ?')" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn-action-custom btn-action-delete">

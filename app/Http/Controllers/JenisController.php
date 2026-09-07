@@ -25,6 +25,6 @@ class JenisController extends Controller
             'nama_jenis' => $request->nama_jenis,
         ]);
 
-        return redirect()->route('jenis.index')->with('success', 'Jenis produk berhasil ditambahkan!');
+        return redirect()->route('jenis.index')->with('success', 'Jenis produk berhasil ditambahkan');
     }
 }

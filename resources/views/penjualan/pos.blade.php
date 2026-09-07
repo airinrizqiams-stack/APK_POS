@@ -367,7 +367,7 @@
 
                     <!-- Form Checkout -->
                     @if(isset($sale))
-                    <form method="POST" action="{{ route('penjualan.update', $sale->id) }}" onsubmit="return confirm('Yakin ingin checkout?');">
+                    <form method="POST" action="{{ route('penjualan.update', $sale->id) }}" onsubmit="return confirm('Yakin ingin checkout ?');">
                         @csrf
                         @method('PUT')
                         <div class="mb-3">

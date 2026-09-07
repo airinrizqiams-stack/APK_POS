@@ -227,7 +227,7 @@
                                 <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="d-inline m-0">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn btn-action-delete" onclick="return confirm('Apakah Anda yakin ingin menghapus pengguna ini?')">
+                                    <button class="btn btn-action-delete" onclick="return confirm('Apakah Anda yakin ingin menghapus pengguna ini ?')">
                                         <i class="bi bi-trash"></i> Hapus
                                     </button>
                                 </form>
