@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function() {
         Route::resource('/penjualan', PenjualanController::class);
         Route::resource('/itempenjualan', ItemPenjualanController::class);
         
-        Route::get('/jenis', [JenisController::class, 'index'])->name('jenis.index');
-        Route::post('/jenis', [JenisController::class, 'store'])->name('jenis.store'); 
+        // Menggunakan Resource agar index, store, update, dan destroy otomatis terdaftar
+        Route::resource('/jenis', JenisController::class)->except(['create', 'show', 'edit']);
     });
 });

@@ -9,8 +9,8 @@
     @include('layouts.navbar')
 </div>
 
-<!-- Memanggil Bootstrap Icons untuk komponen ikon visual -->
-<link rel="stylesheet" href="https://jsdelivr.net">
+<!-- Bootstrap Icons CDN Fix -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 <style>
     :root {
@@ -35,7 +35,7 @@
         padding-right: 15px !important;
     }
 
-    /* Pembungkus Halaman Form agar Tidak Terlalu Melebar */
+    /* Pembungkus Halaman Form */
     .form-wrapper {
         padding: 2.5rem 15px;
         max-width: 800px;
@@ -69,6 +69,23 @@
         box-shadow: 0 4px 15px rgba(73, 54, 40, 0.05);
     }
 
+    .form-label-custom {
+        font-weight: 600;
+        color: var(--color-primary);
+        margin-bottom: 0.5rem;
+    }
+
+    .form-control-custom {
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        padding: 0.6rem 0.9rem;
+    }
+
+    .form-control-custom:focus {
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 0.2rem rgba(73, 54, 40, 0.15);
+    }
+
     .btn-action-custom {
         font-weight: 600;
         padding: 0.65rem 1.75rem;
@@ -80,7 +97,7 @@
         text-decoration: none;
     }
 
-    /* Tombol Simpan (TETAP COKELAT SEJAK AWAL) */
+    /* Tombol Simpan */
     .btn-save-custom {
         background-color: var(--color-primary) !important;
         border: 1.5px solid var(--color-primary) !important;
@@ -91,7 +108,7 @@
         border-color: #35271d !important;
     }
 
-    /* Tombol Kembali (AWALNYA PUTIH, BERUBAH COKELAT SAAT DIKLIK/HOVER) */
+    /* Tombol Kembali */
     .btn-back-custom {
         background-color: #FFFFFF !important;
         border: 1.5px solid #5A4B41 !important;
@@ -101,26 +118,52 @@
         background-color: #5A4B41 !important;
         color: #FFFFFF !important;
     }
+
+    .preview-box {
+        min-height: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px dashed var(--color-border);
+        border-radius: 8px;
+        background-color: #FAF9F6;
+    }
 </style>
 
 <div class="form-wrapper">
-    
-    <!-- Bagian Kepala: Judul Terlokalisasi -->
+    <!-- Header Page -->
     <div class="header-section text-start">
         <h1 class="main-title">Ubah Informasi Produk</h1>
         <p class="main-subtitle">Perbarui data spesifikasi, harga jual beli, atau unggah ulang gambar katalog produk</p>
     </div>
 
-    <!-- Wadah Form Utama -->
+    <!-- Form Container -->
     <div class="form-card-custom">
         <form action="{{ route('produk.update', $produk) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-            
+
             @include('produk._form')
         </form>
     </div>
-
 </div>
+
+<script>
+    // Script Preview Image JavaScript
+    function previewImage(input) {
+        const preview = document.getElementById('preview');
+        const previewText = document.getElementById('preview-text');
+
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+                if(previewText) previewText.style.display = 'none';
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
 
 @endsection

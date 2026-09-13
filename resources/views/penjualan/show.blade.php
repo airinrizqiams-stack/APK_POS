@@ -9,7 +9,7 @@
 </div>
 
 <!-- Memanggil Bootstrap Icons via CDN -->
-<link rel="stylesheet" href="https://jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 <style>
     :root {
@@ -110,17 +110,25 @@
         color: #495057;
     }
 
-    /* Warna Spesifik Baris Total Pembayaran */
+    /* Baris Rincian Pembayaran */
+    .table-summary-row td {
+        background-color: #FAFAFA !important;
+        color: var(--color-primary) !important;
+        font-size: 0.95rem !important;
+        padding: 0.65rem 1rem !important;
+        border-bottom: none !important;
+    }
+
     .table-total-row td {
         background-color: #FAFAFA !important;
         color: var(--color-primary) !important;
         font-size: 1.05rem !important;
         padding: 1.1rem 1rem !important;
         border-top: 1.5px solid var(--color-border) !important;
-        border-bottom: none !important;
+        border-bottom: 1px solid #EFEFEF !important;
     }
 
-    /* Label Penanda Stok / Status */
+    /* Label Penanda Status */
     .badge-method {
         background-color: rgba(171, 136, 109, 0.15);
         color: var(--color-primary);
@@ -167,11 +175,20 @@
         background-color: rgba(171, 136, 109, 0.1) !important;
         color: var(--color-primary) !important;
     }
+
+    /* Box Tampilan QRIS pada Detail */
+    .qris-detail-box {
+        border: 2px dashed var(--color-border);
+        background-color: #FAFAFA;
+        border-radius: 10px;
+        padding: 1rem;
+        text-align: center;
+    }
 </style>
 
 <div class="content-wrapper">
 
-    <!-- Bagian Kepala: Judul Utama & Tombol Kembali Sejajar -->
+    <!-- Header -->
     <div class="header-section text-start">
         <div>
             <h1 class="main-title">Faktur Detail Transaksi</h1>
@@ -188,16 +205,16 @@
             <i class="bi bi-receipt"></i> Ringkasan Nota #{{ $penjualan->id }}
         </div>
         <div class="card-body-custom">
-            <div class="row g-3">
-                <div class="col-md-4">
+            <div class="row g-3 align-items-center">
+                <div class="col-md-3">
                     <p class="mb-1 text-muted" style="font-size: 0.85rem; font-weight: 600; text-transform: uppercase;">Tanggal Transaksi</p>
                     <h6 class="fw-bold" style="color: var(--color-primary);"><i class="bi bi-clock"></i> {{ $penjualan->created_at->format('d-m-Y H:i:s') }}</h6>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <p class="mb-1 text-muted" style="font-size: 0.85rem; font-weight: 600; text-transform: uppercase;">Kasir Bertugas</p>
                     <h6 class="fw-bold" style="color: var(--color-primary);"><i class="bi bi-person"></i> {{ $penjualan->user->name ?? 'Tidak Diketahui' }}</h6>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <p class="mb-1 text-muted" style="font-size: 0.85rem; font-weight: 600; text-transform: uppercase;">Metode & Status</p>
                     <div class="d-flex gap-2 align-items-center mt-1">
                         <span class="badge-method">{{ $penjualan->metode_pembayaran ?? '-' }}</span>
@@ -206,11 +223,29 @@
                         </span>
                     </div>
                 </div>
+
+                <!-- Kondisi Header: Jika CASH / TUNAI -->
+                @if(($penjualan->metode_pembayaran ?? '') === 'CASH')
+                    <div class="col-md-3">
+                        <p class="mb-1 text-muted" style="font-size: 0.85rem; font-weight: 600; text-transform: uppercase;">Pembayaran Tunai</p>
+                        <h6 class="fw-bold mb-0" style="color: var(--color-primary);">
+                            Bayar: Rp {{ number_format($penjualan->uang_dibayar ?? 0, 0, ',', '.') }}
+                        </h6>
+                        <small class="text-muted">Kembali: Rp {{ number_format($penjualan->kembalian ?? 0, 0, ',', '.') }}</small>
+                    </div>
+
+                <!-- Kondisi Header: Jika QRIS -->
+                @elseif(($penjualan->metode_pembayaran ?? '') === 'QRIS')
+                    <div class="col-md-3">
+                        <p class="mb-1 text-muted" style="font-size: 0.85rem; font-weight: 600; text-transform: uppercase;">Info Pembayaran QRIS</p>
+                        <span class="badge bg-success"><i class="bi bi-check-all"></i> Terverifikasi Digital</span>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
 
-    {{-- Tabel Item Produk yang Dibeli --}}
+    {{-- Tabel Item Produk & Rincian Pembayaran --}}
     <div class="card-custom text-start">
         <div class="card-header-custom">
             <i class="bi bi-cart3"></i> Rincian Item Barang Yang Dibeli
@@ -229,17 +264,54 @@
                     @foreach($penjualan->itemPenjualan as $item)
                     <tr>
                         <td class="ps-4"><strong>{{ $item->produk->nama }}</strong></td>
-                        <td>Rp {{ number_format($item->produk->harga_jual) }}</td>
+                        <td>Rp {{ number_format($item->produk->harga_jual, 0, ',', '.') }}</td>
                         <td>{{ $item->kuantitas }} Unit</td>
-                        <td class="text-end pe-4">Rp {{ number_format($item->subtotal) }}</td>
+                        <td class="text-end pe-4">Rp {{ number_format($item->subtotal, 0, ',', '.') }}</td>
                     </tr>
                     @endforeach
                     
-                    <!-- Baris Total Pembayaran yang Diperbarui (Tanpa warna hitam legam bawaan lama) -->
+                    <!-- Total Keseluruhan Pembayaran -->
                     <tr class="table-total-row">
                         <td colspan="3" class="text-end fw-bold ps-4">Total Keseluruhan Pembayaran:</td>
-                        <td class="text-end pe-4 fw-bold text-success">Rp {{ number_format($penjualan->total_pembayaran) }}</td>
+                        <td class="text-end pe-4 fw-bold text-success">Rp {{ number_format($penjualan->total_pembayaran, 0, ',', '.') }}</td>
                     </tr>
+
+                    {{-- Kondisi 1: Tampilkan Uang Dibayar & Kembalian jika Pembayaran Tunai (CASH) --}}
+                    @if(($penjualan->metode_pembayaran ?? '') === 'CASH')
+                    <tr class="table-summary-row">
+                        <td colspan="3" class="text-end fw-bold ps-4">Uang Dibayar:</td>
+                        <td class="text-end pe-4 fw-bold" style="color: var(--color-primary);">Rp {{ number_format($penjualan->uang_dibayar ?? 0, 0, ',', '.') }}</td>
+                    </tr>
+                    <tr class="table-summary-row">
+                        <td colspan="3" class="text-end fw-bold ps-4">Uang Kembalian:</td>
+                        <td class="text-end pe-4 fw-bold text-muted">Rp {{ number_format($penjualan->kembalian ?? 0, 0, ',', '.') }}</td>
+                    </tr>
+
+                    {{-- Kondisi 2: Tampilkan QR Barcode jika Pembayaran QRIS --}}
+                    @elseif(($penjualan->metode_pembayaran ?? '') === 'QRIS')
+                    <tr class="table-summary-row">
+                        <td colspan="4" class="p-4">
+                            <div class="qris-detail-box mx-auto" style="max-width: 320px;">
+                                <div class="d-flex justify-content-center align-items-center mb-2">
+                                    <span class="fw-bold fs-5 text-danger me-1">QRIS</span>
+                                    <span class="badge bg-secondary style-sm" style="font-size: 0.65rem;">NATIONAL QR CODE</span>
+                                </div>
+                                <p class="small text-muted mb-2">Scan QR Pembayaran Digital Transaksi Ini</p>
+                                
+                                <div class="p-2 bg-white d-inline-block border rounded shadow-sm my-2">
+                                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=TRANSAKSI_QRIS_ID_{{ $penjualan->id }}_TOTAL_{{ $penjualan->total_pembayaran }}" 
+                                         alt="Barcode QRIS Transaksi" 
+                                         style="width: 140px; height: 140px;">
+                                </div>
+                                
+                                <div class="mt-2 text-success small fw-bold">
+                                    <i class="bi bi-patch-check-fill"></i> Lunas via QRIS / e-Wallet
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    @endif
+
                 </tbody>
             </table>
         </div>

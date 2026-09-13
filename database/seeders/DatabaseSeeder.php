@@ -18,11 +18,10 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoleSeeder::class,
             UserSeeder::class,
+            JenisSeeder::class, // Dipanggil sebelum ProdukSeeder
             ProdukSeeder::class,
             PenjualanSeeder::class
-            ]);
-
-        // User::factory(10)->create();
+        ]);
 
         User::factory()->create([
             'name' => 'Test User',

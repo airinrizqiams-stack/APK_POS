@@ -6,6 +6,7 @@ use App\Http\Requests\Produk\StoreRequest;
 use App\Http\Requests\Produk\UpdateRequest;
 use App\Http\Requests\SearchRequest;
 use App\Models\Produk;
+use App\Models\Jenis;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -43,7 +44,10 @@ class ProdukController extends Controller
     {
         $this->authorize('create', Produk::class);
 
-        return view('produk.create');
+        // Ambil daftar jenis produk dari database
+        $jenisList = Jenis::all();
+
+        return view('produk.create', compact('jenisList'));
     }
 
     /**
@@ -53,13 +57,8 @@ class ProdukController extends Controller
     {
         $this->authorize('create', Produk::class);
 
-        $dataReq = $request->validated();
-
+        $data = $request->validated();
         $data['user_id'] = Auth::id();
-        $data['nama'] = $dataReq['name'];
-        $data['harga_beli'] = $dataReq['purchase_price'];
-        $data['harga_jual'] = $dataReq['selling_price'];
-        $data['stok'] = $dataReq['stock'] ?? true;
 
         if ($request->hasFile('foto')) {
             $data['foto'] = $request->file('foto')->store('products', 'public');
@@ -85,7 +84,9 @@ class ProdukController extends Controller
     {
         $this->authorize('update', $produk);
 
-        return view('produk.edit', compact('produk'));
+        $jenisList = Jenis::all();
+
+        return view('produk.edit', compact('produk', 'jenisList'));
     }
 
     /**
@@ -95,24 +96,14 @@ class ProdukController extends Controller
     {
         $this->authorize('update', $produk);
 
-        $dataReq = $request->validated();
+        $data = $request->validated();
+        $data['user_id'] = Auth::id();
 
-        $data = [
-            'user_id'    => Auth::id(),
-            'nama'       => $dataReq['name'],
-            'harga_beli' => $dataReq['purchase_price'],
-            'harga_jual' => $dataReq['selling_price'],
-            'stok'       => $dataReq['stock'],
-        ];
-
-        // Jika upload foto baru
         if ($request->hasFile('foto')) {
-            // Hapus foto lama (jika ada & memang tersimpan)
             if ($produk->foto && Storage::disk('public')->exists($produk->foto)) {
                 Storage::disk('public')->delete($produk->foto);
             }
             
-            // Simpan foto baru
             $data['foto'] = $request->file('foto')->store('products', 'public');
         }
 
@@ -128,20 +119,16 @@ class ProdukController extends Controller
     {
         $this->authorize('delete', $produk);
 
-        // PERBAIKAN UTAMA: Cek apakah produk ini sudah terikat dengan riwayat transaksi penjualan
         $terpakai = DB::table('item_penjualan')->where('produk_id', $produk->id)->exists();
 
         if ($terpakai) {
-            // Gagalkan penghapusan secara sopan dan kirim pesan error kembali ke halaman sebelumnya
             return back()->with('error', 'Produk tidak bisa dihapus karena sudah memiliki riwayat transaksi penjualan.');
         }
 
-        // Jika tidak ada di nota penjualan, hapus file foto produk
         if ($produk->foto) {
             Storage::disk('public')->delete($produk->foto);
         }
 
-        // Hapus data produk dari tabel
         $produk->delete();
 
         return redirect()->route('produk.index')->with('success', 'Produk berhasil dihapus');
