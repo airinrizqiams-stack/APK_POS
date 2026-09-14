@@ -137,6 +137,7 @@
     <!-- Form Container -->
     <div class="form-card-custom">
         <form action="{{ route('produk.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
             @include('produk._form')
         </form>
     </div>
