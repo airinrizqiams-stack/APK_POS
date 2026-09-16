@@ -36,5 +36,8 @@ Route::middleware('auth')->group(function() {
         
         // Menggunakan Resource agar index, store, update, dan destroy otomatis terdaftar
         Route::resource('/jenis', JenisController::class)->except(['create', 'show', 'edit']);
+        Route::get('/tentang', function () {
+            return view('tentang.index'); // Menggunakan titik (.) untuk masuk ke folder
+        })->name('tentang');
     });
 });
