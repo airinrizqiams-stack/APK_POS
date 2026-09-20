@@ -162,10 +162,10 @@
 </div>
 
 <div class="d-flex align-items-center gap-2 pt-2 text-start">
-    <button class="btn btn-cafe-primary" type="submit">
+    <button class="btn btn-simpan" type="submit">
         <i class="bi bi-save me-1"></i> Simpan Data
     </button>
-    <a href="{{ route('produk.index') }}" class="btn btn-cafe-outline">
+    <a href="{{ route('admin.users.index') }}" class="btn btn-kembali">
         <i class="bi bi-arrow-left me-1"></i> Kembali
     </a>
 </div>

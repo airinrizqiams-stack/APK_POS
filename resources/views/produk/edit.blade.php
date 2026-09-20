@@ -135,7 +135,6 @@
         <form action="{{ route('produk.update', $produk) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-
             @include('produk._form')
         </form>
     </div>
