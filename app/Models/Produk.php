@@ -26,7 +26,6 @@ class Produk extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    // Relasi ke Model Jenis
     public function jenis()
     {
         return $this->belongsTo(Jenis::class, 'jenis_id');

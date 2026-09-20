@@ -4,12 +4,10 @@
 
 @section('content')
 
-<!-- Memaksa navbar bawaan agar rata tengah mengikuti lebar form -->
 <div class="navbar-container-fix">
     @include('layouts.navbar')
 </div>
 
-<!-- Memanggil Bootstrap Icons untuk komponen ikon visual -->
 <link rel="stylesheet" href="https://jsdelivr.net">
 
 <style>
@@ -35,7 +33,6 @@
         padding-right: 15px !important;
     }
 
-    /* Pembungkus Halaman Form agar Tidak Terlalu Melebar */
     .form-wrapper {
         padding: 2.5rem 15px;
         max-width: 800px;
@@ -60,7 +57,6 @@
         font-weight: 400;
     }
 
-    /* Kotak Utama Form */
     .form-card-custom {
         background: var(--color-card);
         border: 1px solid var(--color-border);
@@ -69,9 +65,6 @@
         box-shadow: 0 4px 15px rgba(73, 54, 40, 0.05);
     }
 
-    /* ==========================================================================
-       PERBAIKAN CSS TOMBOL INTERAKTIF (PUTIH KE COKELAT)
-       ========================================================================== */
     .btn-interactive-custom {
         background-color: #FFFFFF !important;
         font-weight: 600;
@@ -84,25 +77,21 @@
         text-decoration: none;
     }
 
-    /* Tombol Simpan (Default: Border & Teks Cokelat Tua) */
     .btn-simpan {
         border: 1.5px solid var(--color-primary) !important;
         color: var(--color-primary) !important;
     }
 
-    /* Tombol Simpan (Hover/Active: Latar Cokelat Tua, Teks Putih) */
     .btn-simpan:hover, .btn-simpan:active, .btn-simpan:focus {
         background-color: var(--color-primary) !important;
         color: #FFFFFF !important;
     }
 
-    /* Tombol Kembali (Default: Border & Teks Cokelat Pudar) */
     .btn-kembali {
         border: 1.5px solid #5A4B41 !important;
         color: #5A4B41 !important;
     }
 
-    /* Tombol Kembali (Hover/Active: Latar Cokelat Pudar, Teks Putih) */
     .btn-kembali:hover, .btn-kembali:active, .btn-kembali:focus {
         background-color: #5A4B41 !important;
         color: #FFFFFF !important;
@@ -110,14 +99,12 @@
 </style>
 
 <div class="form-wrapper">
-    
-    <!-- Bagian Kepala: Judul Terlokalisasi -->
+
     <div class="header-section text-start">
         <h1 class="main-title">Ubah Data Pengguna</h1>
         <p class="main-subtitle">Perbarui informasi profil atau tingkatan hak akses pengguna yang sudah terdaftar</p>
     </div>
 
-    <!-- Wadah Form Utama -->
     <div class="form-card-custom">
         <form action="{{ route('admin.users.update', $user->id) }}" method="post">
             @csrf

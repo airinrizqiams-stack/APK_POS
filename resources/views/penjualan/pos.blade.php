@@ -6,16 +6,15 @@
 
 @include('layouts.navbar')
 
-<!-- Memanggil Bootstrap Icons via CDN -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 <style>
     :root {
         --color-bg: #E4E0E1;
         --color-card: #FFFFFF;
-        --color-primary: #493628; /* Cokelat Tua Utama */
-        --color-border: #AB886D;  /* Cokelat Pudar Pembatas */
-        --color-muted: #6B5B52;   /* Cokelat Teks */
+        --color-primary: #493628;
+        --color-border: #AB886D;
+        --color-muted: #6B5B52;
     }
 
     body {
@@ -24,14 +23,12 @@
         color: #333333;
     }
 
-    /* Pembungkus Utama Layar Kasir */
     .pos-wrapper {
         padding: 2.5rem 15px;
         max-width: 1200px;
         margin: 0 auto;
     }
 
-    /* Ruang Kepala (Header) & Hierarki Teks */
     .header-section {
         padding-left: 0.5rem;
         margin-bottom: 2rem;
@@ -51,7 +48,6 @@
         font-weight: 400;
     }
 
-    /* Wadah Utama Konten (Card) */
     .card-custom {
         background: var(--color-card);
         border: 1px solid var(--color-border);
@@ -75,7 +71,6 @@
         padding: 1.25rem;
     }
 
-    /* Gaya Kustom Input Kolom */
     .form-control-custom {
         border: 1.5px solid var(--color-border) !important;
         border-radius: 8px !important;
@@ -92,7 +87,6 @@
         background-color: #FFFFFF;
     }
 
-    /* Kartu Item Produk dalam Katalog Kasir */
     .btn-product-item {
         background-color: #FFFFFF !important;
         border: 1.5px solid var(--color-border) !important;
@@ -109,7 +103,6 @@
         background-color: rgba(171, 136, 109, 0.05) !important;
     }
 
-    /* Desain Tombol Tambah Keranjang (+) */
     .btn-add-cart-custom {
         background-color: #8E705C !important;
         border: 1.5px solid #8E705C !important;
@@ -130,7 +123,6 @@
         border-color: var(--color-primary) !important;
     }
 
-    /* Penataan Tabel Keranjang Belanja Kasir */
     .table-aesthetic {
         width: 100%;
         margin-bottom: 1.5rem;
@@ -153,7 +145,6 @@
         text-align: left;
     }
 
-    /* Input Qty Mini Dalam Tabel */
     .table-qty-input {
         max-width: 60px;
         text-align: center;
@@ -163,7 +154,6 @@
         background-color: #FAFAFA;
     }
 
-    /* Tombol Hapus */
     .btn-delete-item-custom {
         background-color: #A54A4A !important;
         border: none !important;
@@ -179,7 +169,6 @@
         background-color: #843b3b !important;
     }
 
-    /* Dropdown Pilihan Pembayaran */
     .select-payment-custom {
         border: 1.5px solid var(--color-border) !important;
         border-radius: 8px !important;
@@ -189,7 +178,6 @@
         background-color: #FFFFFF !important;
     }
 
-    /* Tombol Checkout */
     .btn-checkout-theme {
         background-color: var(--color-primary) !important;
         border: 1.5px solid var(--color-primary) !important;
@@ -205,7 +193,6 @@
         border-color: #35271d !important;
     }
 
-    /* Tombol Batal Transaksi */
     .btn-cancel-theme {
         background-color: #FFFFFF !important;
         border: 1.5px solid #5A4B41 !important;
@@ -221,7 +208,6 @@
         color: #FFFFFF !important;
     }
 
-    /* Card QRIS Styling (Fake QRIS) */
     .qris-card-box {
         border: 2px dashed var(--color-border);
         background-color: #FAFAFA;
@@ -233,7 +219,6 @@
 
 <div class="pos-wrapper text-start">
 
-    <!-- Notifikasi Pesan Kesalahan -->
     @if(session('errors') || $errors->any())
     <div class="alert alert-danger mb-4" style="border-radius: 8px; text-align: left;">
         <i class="bi bi-exclamation-triangle"></i> 
@@ -245,7 +230,6 @@
     </div>
     @endif
 
-    <!-- Bagian Header -->
     <div class="header-section">
         <h1 class="main-title">
             {{ (isset($mode) && $mode === 'edit') ? 'Ubah Transaksi Penjualan' : 'Entri Transaksi Baru (POS)' }}
@@ -255,15 +239,13 @@
 
     <div class="row g-4">
 
-        {{-- ============================ AREA KATALOG PRODUK (KIRI) ============================ --}}
         <div class="col-lg-6">
             <div class="card-custom">
                 <div class="card-header-custom">
                     <i class="bi bi-box-seam"></i> Pilih Item Katalog Produk
                 </div>
                 <div class="card-body-custom">
-                    
-                    <!-- Form Pencarian Produk Kasir -->
+
                     <div class="mb-4">
                         <form method="GET" action="{{ route('penjualan.create') }}" id="searchForm">
                             <div class="position-relative">
@@ -280,7 +262,6 @@
                         </form>
                     </div>
 
-                    <!-- Daftar Card Katalog Produk -->
                     <div style="max-height: 55vh; overflow-y: auto; padding-right: 4px;">
                         @forelse($products as $product)
                             <form method="POST" action="{{ route('itempenjualan.store') }}" class="mb-3">
@@ -316,7 +297,6 @@
             </div>
         </div>
 
-        {{-- ============================ AREA KERANJANG BELANJA (KANAN) ============================ --}}
         <div class="col-lg-6">
             <div class="card-custom">
                 <div class="card-header-custom">
@@ -324,7 +304,6 @@
                 </div>
                 <div class="card-body-custom">
                     
-                    <!-- Tabel Item Belanja -->
                     <div class="table-responsive" style="max-height: 38vh; overflow-y: auto;">
                         <table class="table table-aesthetic">
                             <thead>
@@ -374,19 +353,16 @@
                         </table>
                     </div>
 
-                    <!-- Total Pembayaran -->
                     <div class="d-flex justify-content-between align-items-center my-3 pt-3" style="border-top: 1.5px dashed var(--color-border);">
                         <span class="fw-bold" style="color: var(--color-primary);">Total Pembayaran:</span>
                         <strong class="fs-4" style="color: var(--color-primary);">Rp {{ number_format($sale->total_pembayaran ?? 0, 0, ',', '.') }}</strong>
                     </div>
 
-                    <!-- Form Checkout -->
                     @if(isset($sale))
                     <form method="POST" action="{{ route('penjualan.update', $sale->id) }}" onsubmit="return validatePayment();">
                         @csrf
                         @method('PUT')
-                        
-                        <!-- Dropdown Pilihan Pembayaran -->
+
                         <div class="mb-3">
                             <select name="payment_method" id="payment_method" class="form-select select-payment-custom w-100" required {{ $sale->status === 'COMPLETED' ? 'disabled' : '' }}>
                                 <option value="">-- Pilih Metode Pembayaran --</option>
@@ -396,7 +372,6 @@
                             </select>
                         </div>
 
-                        <!-- Section Inputan Bayar Tunai (Cash) -->
                         <div id="cash-payment-section" class="mb-3" style="display: none;">
                             <div class="mb-3">
                                 <label for="uang_dibayar" class="form-label fw-bold small" style="color: var(--color-primary);">Nominal Bayar (Rp):</label>
@@ -422,7 +397,6 @@
                             </div>
                         </div>
 
-                        <!-- Section Display Fake QRIS -->
                         <div id="qris-payment-section" class="mb-3" style="display: none;">
                             <div class="qris-card-box">
                                 <div class="d-flex justify-content-center align-items-center mb-2">
@@ -432,7 +406,6 @@
                                 
                                 <p class="small text-muted mb-2">Scan kode QR berikut menggunakan aplikasi Mobile Banking atau e-Wallet (Gopay/OVO/Dana/ShopeePay)</p>
                                 
-                                <!-- QR Code Generator Publik Dinamis -->
                                 <div class="my-3 p-2 bg-white d-inline-block border rounded shadow-sm">
                                     <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=FAKE_QRIS_PAYMENT_TOTAL_{{ $sale->total_pembayaran ?? 0 }}" 
                                          alt="QRIS Code Pembayaran" 
@@ -443,7 +416,6 @@
                                     Nominal: Rp {{ number_format($sale->total_pembayaran ?? 0, 0, ',', '.') }}
                                 </div>
 
-                                <!-- Status QRIS Simulasi -->
                                 <div id="qris-status-box" class="alert alert-warning py-2 mb-2" style="font-size: 0.85rem;">
                                     <i class="bi bi-hourglass-split"></i> Menunggu Pemindaian QR...
                                 </div>
@@ -459,7 +431,6 @@
                         </button>
                     </form>
 
-                    <!-- Form Batal Transaksi -->
                     @can('delete', $sale)
                     <form action="{{ route('penjualan.destroy', $sale->id) }}" method="POST" onsubmit="return confirm('Yakin ingin membatalkan transaksi?');">
                         @csrf
@@ -479,7 +450,6 @@
 </div>
 
 <script>
-    // Dibungkus dengan Number("...") agar VS Code mengenali sintaks sebagai string/number valid
     const totalPembayaran = Number("{{ $sale->total_pembayaran ?? 0 }}");
     const paymentMethodSelect = document.getElementById('payment_method');
     const cashSection = document.getElementById('cash-payment-section');
@@ -488,12 +458,10 @@
     const kembalianDisplay = document.getElementById('kembalian_display');
     const kembalianHidden = document.getElementById('kembalian');
     
-    // Element Pendukung Fake QRIS
     const btnSimulateQris = document.getElementById('btn-simulate-qris');
     const qrisStatusBox = document.getElementById('qris-status-box');
-    let isQrisPaid = false; // Flag status pembayaran QRIS
+    let isQrisPaid = false;
 
-    // Menghitung kembalian secara real-time
     function calculateChange() {
         let paid = parseFloat(uangDibayarInput.value) || 0;
         let change = paid - totalPembayaran;
@@ -509,13 +477,11 @@
         }
     }
 
-    // Mengontrol muncul/sembunyinya input bayar cash & QRIS
     function togglePaymentSection() {
         if (!paymentMethodSelect) return;
         
         const selectedValue = paymentMethodSelect.value;
 
-        // Reset display
         cashSection.style.display = 'none';
         qrisSection.style.display = 'none';
         uangDibayarInput.removeAttribute('required');
@@ -526,15 +492,14 @@
             calculateChange();
         } else if (selectedValue === 'QRIS') {
             qrisSection.style.display = 'block';
-            uangDibayarInput.value = totalPembayaran; // Untuk QRIS nominal pas
+            uangDibayarInput.value = totalPembayaran;
             kembalianHidden.value = 0;
-        } else { // BAYAR_NANTI atau Kosong
+        } else {
             uangDibayarInput.value = 0;
             kembalianHidden.value = 0;
         }
     }
 
-    // Event listener Simulasi Pembayaran QRIS
     if (btnSimulateQris) {
         btnSimulateQris.addEventListener('click', function() {
             isQrisPaid = true;
@@ -547,7 +512,6 @@
 
     if (paymentMethodSelect) {
         paymentMethodSelect.addEventListener('change', function() {
-            // Reset status simulasi QRIS tiap kali metode pembayaran diganti
             isQrisPaid = false;
             if (qrisStatusBox) {
                 qrisStatusBox.className = "alert alert-warning py-2 mb-2";
@@ -563,11 +527,9 @@
 
         uangDibayarInput.addEventListener('input', calculateChange);
         
-        // Jalankan fungsi saat halaman pertama kali dimuat
         togglePaymentSection();
     }
 
-    // Validasi sebelum form di-submit
     function validatePayment() {
         const selectedValue = paymentMethodSelect.value;
 
@@ -587,7 +549,6 @@
         return confirm('Yakin ingin melakukan checkout transaksi?');
     }
 
-    // Debounce Search Bar
     let searchTimer;
     const searchInput = document.getElementById('searchInput');
     const searchForm = document.getElementById('searchForm');

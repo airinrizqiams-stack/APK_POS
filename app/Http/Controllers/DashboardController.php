@@ -20,7 +20,7 @@ class DashboardController extends Controller
 
         return view('dashboard', [
             'tanggalHariIni'   => Carbon::now(),
-            'ringkasan'        => $ringkasan, // Baris duplikat di bawahnya sudah dihapus
+            'ringkasan'        => $ringkasan,
             'produkTerlaris'   => $this->laporanService->produkTerlarisHariIni(),
             'produkStokRendah' => $this->stokService->produkStokRendah(),
             'produkStokHabis'  => $this->stokService->produkStokHabis(),

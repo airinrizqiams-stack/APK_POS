@@ -5,7 +5,6 @@
 @section('content')
 @include('layouts.navbar')
 
-<!-- Bootstrap Icons -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 <style>
@@ -25,7 +24,6 @@
     .btn-custom:hover { opacity: 0.9; }
     .table-custom thead th { background-color: #FAFAFA !important; color: var(--color-primary) !important; border-bottom: 1.5px solid var(--color-border) !important; font-weight: 700; }
     
-    /* Custom Styling Tombol Edit (Kuning) & Hapus (Merah) sesuai Gambar Contoh */
     .btn-edit-custom {
         background-color: #ffc107 !important;
         color: #000000 !important;
@@ -61,7 +59,6 @@
 
 <div class="page-wrapper text-start">
 
-    <!-- Flash Message -->
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show mb-3" role="alert">
             <i class="bi bi-check-circle me-1"></i> {{ session('success') }}
@@ -77,7 +74,7 @@
     @endif
 
     <div class="row g-4">
-        <!-- Form Tambah Jenis -->
+
         <div class="col-md-4">
             <div class="card-custom">
                 <div class="card-header-custom"><i class="bi bi-plus-circle me-1"></i> Tambah Jenis</div>
@@ -97,7 +94,6 @@
             </div>
         </div>
 
-        <!-- Tabel Daftar Jenis -->
         <div class="col-md-8">
             <div class="card-custom">
                 <div class="card-header-custom"><i class="bi bi-list-stars me-1"></i> Daftar Jenis Produk</div>
@@ -121,12 +117,11 @@
                                     </td>
                                     <td class="text-center">
                                         <div class="d-flex justify-content-center gap-2">
-                                            <!-- Tombol Edit (Kuning) -->
+                                           
                                             <button type="button" class="btn btn-edit-custom" data-bs-toggle="modal" data-bs-target="#editModal{{ $jenis->id }}">
                                                 Edit
                                             </button>
 
-                                            <!-- Tombol Hapus (Merah) -->
                                             <form action="{{ route('jenis.destroy', $jenis->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus jenis ini?')">
                                                 @csrf
                                                 @method('DELETE')
@@ -138,7 +133,6 @@
                                     </td>
                                 </tr>
 
-                                <!-- Modal Edit -->
                                 <div class="modal fade" id="editModal{{ $jenis->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $jenis->id }}" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content" style="border-radius: 12px; border: 1px solid var(--color-border);">

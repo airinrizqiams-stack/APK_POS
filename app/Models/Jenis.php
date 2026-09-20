@@ -20,7 +20,7 @@ class Jenis extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    // Tambahkan method relasi ini
+
     public function produk()
     {
         return $this->hasMany(Produk::class, 'jenis_id');

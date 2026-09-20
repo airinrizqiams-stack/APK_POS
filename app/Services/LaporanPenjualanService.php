@@ -9,7 +9,6 @@ class LaporanPenjualanService
 {
     public function ringkasanHariIni(): array
     {
-        // Ambil data ringkasan penjualan hari ini
         $data = DB::table('penjualan')
             ->whereDate('created_at', Carbon::today())
             ->where('status', 'COMPLETED')
@@ -31,7 +30,6 @@ class LaporanPenjualanService
 
     public function produkTerlarisHariIni(int $limit = 5)
     {
-        // Langsung return hasil query builder Laravel (berupa Collection data objek)
         return DB::table('item_penjualan')
             ->join('penjualan', 'penjualan.id', '=', 'item_penjualan.penjualan_id')
             ->join('produk', 'produk.id', '=', 'item_penjualan.produk_id')

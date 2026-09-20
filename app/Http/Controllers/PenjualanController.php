@@ -21,12 +21,10 @@ class PenjualanController extends Controller
 
         $sales = Penjualan::query()
 
-        // 🔒 Filter berdasarkan role
         ->when($user->role->name === 'kasir', function ($query) use ($user) {
             $query->where('user_id', $user->id);
         })
 
-        // 🔍 Search nama user
         ->when($keyword, function ($query) use ($keyword) {
             $query->whereHas('user', function ($q) use ($keyword) {
                 $q->where('name', 'like', '%' . $keyword . '%');
@@ -87,7 +85,7 @@ class PenjualanController extends Controller
      */
     public function show(Penjualan $penjualan)
     {
-        // Memuat data item penjualan beserta produk terkait dan data kasir (user)
+
         $penjualan->load(['itemPenjualan.produk', 'user']);
         
         return view('penjualan.show', compact('penjualan'));
@@ -136,9 +134,8 @@ class PenjualanController extends Controller
         $uangDibayar = null;
         $kembalian = null;
 
-        // Validasi khusus jika metode pembayaran CASH
         if ($request->payment_method === 'CASH') {
-            // Memastikan data diambil secara aman (pakai float/numeric, fallback ke 0 jika kosong)
+
             $uangDibayar = floatval($request->input('uang_dibayar', 0));
             $kembalian = floatval($request->input('kembalian', 0));
 
@@ -175,7 +172,6 @@ class PenjualanController extends Controller
     {
         $this->authorize('delete', $penjualan);
         
-        // ⚠️ Pastikan hanya transaksi OPEN
         if ($penjualan->status !== 'OPEN') {
             return redirect()->route('penjualan.index')->with('errors', 'Transaksi sudah selesai tidak bisa dibatalkan');
         }
@@ -183,14 +179,12 @@ class PenjualanController extends Controller
         DB::transaction(function () use ($penjualan) {
 
             foreach ($penjualan->itemPenjualan as $item) {
-                // 🔄 kembalikan stok
+
                 $item->produk->increment('stok', $item->kuantitas);
             }
 
-            // ❌ hapus item
             $penjualan->itemPenjualan()->delete();
 
-            // ❌ hapus penjualan
             $penjualan->delete();
         });
 

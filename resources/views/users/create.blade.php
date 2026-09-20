@@ -6,7 +6,6 @@
 
 @include('layouts.navbar')
 
-<!-- Memanggil Bootstrap Icons via CDN -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 <style>
@@ -164,7 +163,6 @@
                 @enderror
             </div>
 
-            <!-- PERBAIKAN: Mengubah name="role" menjadi name="role_id" dan me-looping data $roles -->
             <div class="mb-4">
                 <label class="form-label-custom">Hak Akses Sistem (Role)</label>
                 <select name="role_id" class="form-control form-control-custom @error('role_id') is-invalid @enderror">
@@ -180,7 +178,6 @@
                 @enderror
             </div>
 
-            <!-- Bagian Tombol Aksi -->
             <div class="d-flex align-items-center gap-2 pt-2">
                 <button class="btn btn-primary-custom" type="submit">
                     <i class="bi bi-save"></i> Simpan Data

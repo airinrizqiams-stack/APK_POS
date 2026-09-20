@@ -8,7 +8,6 @@
     @include('layouts.navbar')
 </div>
 
-<!-- Memanggil Bootstrap Icons untuk indikator visual -->
 <link rel="stylesheet" href="https://jsdelivr.net">
 
 <style>
@@ -34,14 +33,12 @@
         padding-right: 15px !important;
     }
 
-    /* Pembungkus Konten Utama */
     .content-wrapper {
         padding: 2.5rem 15px;
         max-width: 1140px;
         margin: 0 auto;
     }
 
-    /* Ruang Kepala (Header) & Hierarki Teks */
     .header-section {
         padding-left: 0.5rem;
         margin-bottom: 2rem;
@@ -63,7 +60,6 @@
         font-weight: 400;
     }
 
-    /* Wadah Utama Konten (Card) */
     .card-custom {
         background: var(--color-card);
         border: 1px solid var(--color-border);
@@ -72,7 +68,6 @@
         overflow: hidden;
     }
 
-    /* Header internal dalam card */
     .card-header-custom {
         background-color: #FAFAFA !important;
         border-bottom: 1.5px solid var(--color-border) !important;
@@ -86,7 +81,6 @@
         padding: 2rem 1.5rem;
     }
 
-    /* Thumbnail Bingkai Gambar Produk */
     .product-img-large {
         border: 1px solid var(--color-border);
         border-radius: 12px;
@@ -96,7 +90,6 @@
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
     }
 
-    /* Penataan Tabel Spesifikasi */
     .table-aesthetic {
         margin-bottom: 0;
         width: 100%;
@@ -122,7 +115,6 @@
         color: #495057;
     }
 
-    /* Label Penanda Stok */
     .badge-stock-success {
         background-color: rgba(40, 167, 69, 0.12);
         color: #28a745;
@@ -141,7 +133,6 @@
         font-size: 0.85rem;
     }
 
-    /* Desain Tombol Kembali */
     .btn-back-custom {
         background-color: transparent !important;
         border: 1.5px solid var(--color-border) !important;
@@ -164,7 +155,6 @@
 
 <div class="content-wrapper">
 
-    <!-- Bagian Kepala: Judul Utama & Tombol Kembali Sejajar -->
     <div class="header-section text-start">
         <div>
             <h1 class="main-title">Detail Informasi Produk</h1>
@@ -175,7 +165,6 @@
         </a>
     </div>
 
-    <!-- Wadah Utama Konten -->
     <div class="card-custom text-start">
         <div class="card-header-custom">
             <i class="bi bi-info-circle"></i> Data Identitas Produk: {{ $produk->nama }}
@@ -183,7 +172,7 @@
         
         <div class="card-body-custom">
             <div class="row align-items-center">
-                <!-- Bagian Kiri: Visualisasi Foto Produk -->
+
                 <div class="col-md-5 text-center mb-4 mb-md-0">
                     @if(!empty($produk->foto))
                         <img src="{{ asset('storage/' . $produk->foto) }}" alt="Foto Produk" class="img-fluid product-img-large" style="max-height: 280px; width: 100%; object-fit: contain;">
@@ -195,7 +184,6 @@
                     @endif
                 </div>
 
-                <!-- Bagian Kanan: Spesifikasi Data Ringkas -->
                 <div class="col-md-7">
                     <div class="table-responsive">
                         <table class="table-aesthetic">

@@ -1,4 +1,46 @@
-<!-- Upload Gambar & Preview -->
+<style>
+    .btn-cafe-primary {
+        background-color: #493628;
+        color: #ffffff;
+        border: 1px solid #493628;
+        font-weight: 600;
+        padding: 0.5rem 1.25rem;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+    }
+
+    .btn-cafe-primary:hover,
+    .btn-cafe-primary:focus,
+    .btn-cafe-primary:active {
+        background-color: #32241a !important;
+        color: #ffffff !important;
+        border-color: #32241a !important;
+        box-shadow: none !important;
+    }
+
+    .btn-cafe-outline {
+        background-color: #ffffff;
+        color: #493628;
+        border: 1px solid #6b5b52;
+        font-weight: 600;
+        padding: 0.5rem 1.25rem;
+        border-radius: 8px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        transition: all 0.2s ease;
+    }
+
+    .btn-cafe-outline:hover,
+    .btn-cafe-outline:focus,
+    .btn-cafe-outline:active {
+        background-color: #493628 !important;
+        color: #ffffff !important;
+        border-color: #493628 !important;
+        box-shadow: none !important;
+    }
+</style>
+
 <div class="row mb-4 text-start">
     <div class="col-md-6 mb-3 mb-md-0">
         <label class="form-label-custom">Gambar Produk</label>
@@ -31,7 +73,6 @@
 </div>
 
 <div class="row mb-4 text-start">
-    <!-- Dropdown Jenis Produk -->
     <div class="col-md-6 mb-3 mb-md-0">
         <label class="form-label-custom">Jenis Produk</label>
         <select name="jenis_id" class="form-select form-control-custom @error('jenis_id') is-invalid @enderror" required>
@@ -51,7 +92,6 @@
         @enderror
     </div>
 
-    <!-- Nama Produk -->
     <div class="col-md-6">
         <label class="form-label-custom">Nama Produk</label>
         <input type="text" 
@@ -67,7 +107,6 @@
     </div>
 </div>
 
-<!-- Grid Harga Beli & Harga Jual -->
 <div class="row mb-4 text-start">
     <div class="col-md-6 mb-3 mb-md-0">
         <label class="form-label-custom">Harga Beli (Rp)</label>
@@ -97,7 +136,6 @@
     </div>
 </div>
 
-<!-- Stok -->
 <div class="mb-4 text-start">
     <label class="form-label-custom">Jumlah Stok</label>
     <input type="number" 
@@ -112,12 +150,11 @@
     @enderror
 </div>
 
-<!-- Tombol Aksi -->
 <div class="d-flex align-items-center gap-2 pt-2 text-start">
-    <button class="btn btn-action-custom btn-save-custom" type="submit">
-        <i class="bi bi-save"></i> Simpan
+    <button class="btn btn-cafe-primary" type="submit">
+        <i class="bi bi-save me-1"></i> Simpan Data
     </button>
-    <a href="{{ route('produk.index') }}" class="btn btn-action-custom btn-back-custom">
-        <i class="bi bi-arrow-left"></i> Kembali
+    <a href="{{ route('produk.index') }}" class="btn btn-cafe-outline">
+        <i class="bi bi-arrow-left me-1"></i> Kembali
     </a>
 </div>

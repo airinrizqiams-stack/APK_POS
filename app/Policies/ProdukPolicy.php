@@ -21,7 +21,6 @@ class ProdukPolicy
      */
     public function view(User $user, Produk $produk): bool
     {
-        // KODE ANDA SUDAH BENAR DI SINI (Mengizinkan Admin & Kasir melihat detail)
         return in_array($user->role->name, ['admin', 'kasir'], true);
     }
 

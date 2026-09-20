@@ -6,7 +6,6 @@
 
 @include('layouts.navbar')
 
-<!-- Memanggil Bootstrap Icons via CDN -->
 <link rel="stylesheet" href="https://jsdelivr.net">
 
 <style>
@@ -24,14 +23,12 @@
         color: #333333;
     }
 
-    /* Pembungkus Halaman Utama */
     .content-wrapper {
         padding: 2.5rem 15px;
         max-width: 1140px;
         margin: 0 auto;
     }
 
-    /* Ruang Kepala (Header) & Hierarki Teks */
     .header-section {
         padding-left: 0.5rem;
         margin-bottom: 2rem;
@@ -50,7 +47,6 @@
         font-weight: 400;
     }
 
-    /* Wadah Utama Konten (Card) */
     .table-card-custom {
         background: var(--color-card);
         border: 1px solid var(--color-border);
@@ -59,7 +55,6 @@
         box-shadow: 0 4px 15px rgba(73, 54, 40, 0.05);
     }
 
-    /* Gaya Kustom Kolom Input Pencarian */
     .form-control-custom {
         border: 1.5px solid var(--color-border);
         border-radius: 8px !important;
@@ -75,7 +70,6 @@
         background-color: #FFFFFF;
     }
 
-    /* Desain Tombol Tambah & Tombol Cari */
     .btn-primary-custom {
         background-color: var(--color-primary) !important;
         border: none !important;
@@ -108,7 +102,6 @@
         color: #FFFFFF !important;
     }
 
-    /* Penataan Tabel Aesthetic */
     .table-aesthetic {
         margin-bottom: 0;
     }
@@ -132,7 +125,6 @@
         color: #495057;
     }
 
-    /* Label Penanda Metode & Status */
     .badge-method {
         background-color: rgba(171, 136, 109, 0.15);
         color: var(--color-primary);
@@ -152,9 +144,6 @@
         text-transform: uppercase;
     }
 
-    /* ==========================================================================
-       PERBAIKAN CSS TOMBOL AKSI TABEL (BIRU, KUNING, MERAH SESUAI GAMBAR)
-       ========================================================================== */
     .btn-action-custom {
         padding: 0.35rem 0.85rem !important;
         font-size: 0.85rem !important;
@@ -172,19 +161,16 @@
         color: inherit;
     }
 
-    /* Detail - Biru Cerah */
     .btn-action-detail {
         background-color: #2b9ebb !important;
         color: #FFFFFF !important;
     }
 
-    /* Edit - Kuning Emas */
     .btn-action-edit {
         background-color: #ffc107 !important;
         color: #212529 !important;
     }
 
-    /* Hapus - Merah Cerah */
     .btn-action-delete {
         background-color: #dc3545 !important;
         color: #FFFFFF !important;
@@ -193,23 +179,19 @@
 
 <div class="content-wrapper">
 
-    <!-- Notifikasi Pesan Kesalahan Lama -->
     @if(session('errors'))
         <div class="alert alert-danger mb-4" style="border-radius: 8px;">
             <i class="bi bi-exclamation-triangle"></i> {{ session('errors') }}
         </div>
     @endif
 
-    <!-- Bagian Kepala: Judul Terlokalisasi -->
     <div class="header-section text-start">
         <h1 class="main-title">Data Transaksi Penjualan</h1>
         <p class="main-subtitle">Pantau dan kelola riwayat seluruh transaksi masuk, metode pembayaran, serta status kasir</p>
     </div>
 
-    <!-- Wadah Utama Konten -->
     <div class="table-card-custom">
 
-        <!-- Baris Tombol Tambah Transaksi & Form Pencarian -->
         <div class="row g-3 mb-4 align-items-center">
             <div class="col-md-4 text-start">
                 <a href="{{ route('penjualan.create') }}" class="btn btn-primary-custom">
@@ -236,7 +218,6 @@
             </div>
         </div>
 
-        <!-- Tabel Riwayat Penjualan -->
         <div class="table-responsive">
             <table class="table table-aesthetic align-middle text-start">
                 <thead>
@@ -264,7 +245,7 @@
                             <span class="badge-status-completed"><i class="bi bi-check-circle"></i> {{ $sale->status }}</span>
                         </td>
                         <td>
-                            <!-- PERBAIKAN: Penyesuaian class tombol aksi operasional tabel -->
+
                             <div class="d-flex align-items-center gap-1">
                                 <a href="{{ route('penjualan.show', $sale->id) }}" class="btn-action-custom btn-action-detail">
                                     Detail
@@ -295,6 +276,5 @@
             </table>
         </div>
 
-        <!-- Pagination Link -->
           {{ $sales->links() }}
 @endsection

@@ -18,7 +18,6 @@ Route::middleware('auth')->group(function() {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    // Khusus Hak Akses Admin
     Route::middleware('role:admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('/users', [UserController::class, 'index'])->name('users.index');
         Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
@@ -28,16 +27,14 @@ Route::middleware('auth')->group(function() {
         Route::delete('/users/destroy/{user}', [UserController::class, 'destroy'])->name('users.destroy');
     });
 
-    // Hak Akses Bersama (Admin & Kasir)
     Route::middleware('role:admin,kasir')->group(function () {
         Route::resource('/produk', ProdukController::class);
         Route::resource('/penjualan', PenjualanController::class);
         Route::resource('/itempenjualan', ItemPenjualanController::class);
         
-        // Menggunakan Resource agar index, store, update, dan destroy otomatis terdaftar
         Route::resource('/jenis', JenisController::class)->except(['create', 'show', 'edit']);
         Route::get('/tentang', function () {
-            return view('tentang.index'); // Menggunakan titik (.) untuk masuk ke folder
+            return view('tentang.index');
         })->name('tentang');
     });
 });

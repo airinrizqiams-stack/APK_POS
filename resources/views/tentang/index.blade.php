@@ -96,11 +96,10 @@
     }
 </style>
 
-{{-- CDN FontAwesome untuk Ikon --}}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <div class="container py-5">
-    {{-- Header Section --}}
+
     <div class="text-center mb-4">
         <span class="badge-accent mb-2 d-inline-block">Cita Rasa & Hangatnya Suasana</span>
         <h1 class="text-cafe-title display-5 fw-bold mb-3">Tentang Airin Cafe</h1>
@@ -109,14 +108,12 @@
         </p>
     </div>
 
-    {{-- Photo Banner Section --}}
     <div class="mb-5">
         <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=1200&auto=format&fit=crop" 
             alt="Suasana Airin Cafe" 
             class="cafe-hero-img shadow-sm">
     </div>
 
-    {{-- Main Content Section --}}
     <div class="row g-4 mb-5">
         <div class="col-md-6">
             <div class="about-card p-4 h-100">
@@ -143,16 +140,14 @@
         </div>
     </div>
 
-    {{-- Info & Social Media Footer Card --}}
     <div class="about-card p-4 p-md-5 text-center mb-4">
         <h4 class="text-cafe-title mb-3">Tetap Terhubung Bersama Kami</h4>
         <p class="text-cafe-muted mb-4">
             Dapatkan pembaruan menu terbaru, promo menarik, dan kehangatan harian Airin Cafe.
         </p>
 
-        {{-- Social Media Icons --}}
         <div class="d-flex justify-content-center gap-3 mb-4">
-            <a href="https://instagram.com/airinrizlads19" target="_blank" class="social-btn" title="Instagram @airinrizlads19">
+            <a href="https://www.instagram.com/_airinrizlads_?stkn=MTIzc2IyM2RhbmViMg==" target="_blank" class="social-btn" title="Instagram @_airinrizlads_">
                 <i class="fab fa-instagram fs-5"></i>
             </a>
             <a href="https://tiktok.com/@airinrizlads19" target="_blank" class="social-btn" title="TikTok @airinrizlads19">
@@ -176,7 +171,7 @@
                 <i class="fas fa-location-dot me-1"></i> SMKN 4 Tasikmalaya
             </div>
             <div class="col-md-4">
-                <i class="fas fa-envelope me-1"></i> airincafe@gmail.com
+                <i class="fas fa-envelope me-1"></i> airincafe.official@gmail.com
             </div>
         </div>
     </div>

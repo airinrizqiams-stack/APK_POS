@@ -36,13 +36,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Daftarkan policies
         $this->registerPolicies();
 
-        // Gunakan Bootstrap 5 untuk Pagination
         Paginator::useBootstrapFive();
 
-        // Set bahasa Carbon ke Indonesia
         Carbon::setLocale('id');
     }
 }

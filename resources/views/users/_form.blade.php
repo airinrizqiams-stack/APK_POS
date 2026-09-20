@@ -29,7 +29,6 @@
         background-color: #FFFFFF !important;
     }
 
-    /* Validasi Error Merah */
     .is-invalid-custom {
         border-color: #dc3545 !important;
     }
@@ -45,7 +44,6 @@
         font-weight: 500;
     }
 
-    /* Wadah Relatif Khusus Password */
     .password-wrapper-custom {
         position: relative !important;
         width: 100% !important;
@@ -53,7 +51,6 @@
         align-items: center !important;
     }
 
-    /* CSS Tombol Mata SVG Modern */
     .btn-toggle-password-custom {
         position: absolute !important;
         right: 15px !important;
@@ -72,9 +69,6 @@
         fill: var(--color-primary) !important;
     }
 
-    /* ==========================================================================
-       PERBAIKAN CSS TOMBOL (SIMPAN TETAP COKELAT, KEMBALI INTERAKTIF PUTIH-COKELAT)
-       ========================================================================== */
     .btn-action-custom {
         font-weight: 600;
         padding: 0.65rem 1.75rem;
@@ -86,7 +80,6 @@
         text-decoration: none;
     }
 
-    /* Tombol Simpan (TETAP COKELAT SEJAK AWAL) */
     .btn-save-custom {
         background-color: var(--color-primary) !important;
         border: 1.5px solid var(--color-primary) !important;
@@ -97,7 +90,6 @@
         border-color: #35271d !important;
     }
 
-    /* Tombol Kembali (AWALNYA PUTIH, BERUBAH COKELAT SAAT DIKLIK/HOVER) */
     .btn-back-custom {
         background-color: #FFFFFF !important;
         border: 1.5px solid #5A4B41 !important;
@@ -109,7 +101,6 @@
     }
 </style>
 
-<!-- Input Nama Lengkap -->
 <div class="mb-4">
     <label class="form-label-custom">Nama Lengkap</label>
     <input type="text" name="name"
@@ -121,7 +112,6 @@
     @enderror   
 </div>
 
-<!-- Input Alamat Email -->
 <div class="mb-4">
     <label class="form-label-custom">Alamat Email</label>
     <input type="email" name="email"
@@ -133,7 +123,6 @@
     @enderror
 </div>
 
-<!-- Input Kata Sandi + Fitur Tombol Mata SVG Terkoreksi -->
 <div class="mb-4">
     <label class="form-label-custom">Kata Sandi (Password)</label>
     <div class="password-wrapper-custom">
@@ -142,7 +131,7 @@
                placeholder="{{ isset($user) ? 'Kosongkan jika tidak ingin mengubah kata sandi' : 'Masukkan kata sandi minimal 8 karakter' }}" 
                style="padding-right: 3rem !important;">
         <button type="button" class="btn-toggle-password-custom" id="togglePasswordForm">
-            <!-- Tautan XMLNS di bawah ini sekarang sudah diperbaiki dengan benar -->
+
             <svg id="eyeIconForm" xmlns="http://w3.org" width="20" height="20" fill="#6B5B52" viewBox="0 0 16 16">
                 <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z"/>
                 <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829"/>
@@ -155,7 +144,6 @@
     @enderror
 </div>
 
-<!-- Opsi Pilihan Hak Akses -->
 <div class="mb-4">
     <label class="form-label-custom">Hak Akses Sistem (Role)</label>
     <select name="role_id"
@@ -173,17 +161,15 @@
     @enderror
 </div>
 
-<!-- Baris Tombol Submit / Kembali -->
-<div class="d-flex align-items-center gap-2 mt-4">
-    <button type="submit" class="btn btn-action-custom btn-save-custom">
-        Simpan Data
+<div class="d-flex align-items-center gap-2 pt-2 text-start">
+    <button class="btn btn-cafe-primary" type="submit">
+        <i class="bi bi-save me-1"></i> Simpan Data
     </button>
-    <a href="{{ route('admin.users.index') }}" class="btn btn-action-custom btn-back-custom">
-        ← Kembali
+    <a href="{{ route('produk.index') }}" class="btn btn-cafe-outline">
+        <i class="bi bi-arrow-left me-1"></i> Kembali
     </a>
 </div>
 
-<!-- JavaScript Interaksi Intip Sandi Khusus Form -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const toggleBtn = document.getElementById('togglePasswordForm');

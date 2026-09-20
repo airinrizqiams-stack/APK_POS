@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Jenis;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth; // <-- 1. Tambahkan ini
+use Illuminate\Support\Facades\Auth;
 
 class JenisController extends Controller
 {
@@ -21,7 +21,7 @@ class JenisController extends Controller
         ]);
 
         Jenis::create([
-            'user_id'    => Auth::id(), // <-- 2. Tambahkan user_id yang sedang login
+            'user_id'    => Auth::id(),
             'nama_jenis' => $request->nama_jenis,
         ]);
 

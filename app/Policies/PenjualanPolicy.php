@@ -20,12 +20,11 @@ class PenjualanPolicy
     }
     public function update(User $user, Penjualan $penjualan): bool 
     {
-        // Hanya bisa diedit jika status masih OPEN
+
         if ($penjualan->status !== 'OPEN') {
             return false;
         }
 
-        // Admin atau Kasir pemilik transaksi yang berhak mengedit
         if ($user->role?->name === 'admin') {
             return true;
         }

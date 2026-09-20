@@ -5,7 +5,6 @@
 @section('content')
 @include('layouts.navbar')
 
-<!-- Memanggil Bootstrap Icons via CDN -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 <style>
@@ -128,13 +127,12 @@
 </style>
 
 <div class="content-wrapper">
-    <!-- Header Section -->
+
     <div class="header-section text-start">
         <h1 class="main-title">Tambah Produk Baru</h1>
         <p class="main-subtitle">Isi formulir di bawah ini untuk menambahkan barang atau produk baru ke sistem katalog</p>
     </div>
 
-    <!-- Form Container -->
     <div class="form-card-custom">
         <form action="{{ route('produk.store') }}" method="POST" enctype="multipart/form-data">
             @csrf

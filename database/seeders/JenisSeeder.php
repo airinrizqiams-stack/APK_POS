@@ -10,7 +10,6 @@ class JenisSeeder extends Seeder
 {
     public function run(): void
     {
-        // Ambil ID user (misal user dengan role_id 1 atau user pertama)
         $userId = User::value('id') ?? 1;
 
         $categories = [
@@ -24,7 +23,7 @@ class JenisSeeder extends Seeder
         foreach ($categories as $category) {
             Jenis::firstOrCreate(
                 ['nama_jenis' => $category],
-                ['user_id' => $userId] // Menambahkan user_id
+                ['user_id' => $userId]
             );
         }
     }

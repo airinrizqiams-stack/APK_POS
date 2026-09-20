@@ -4,12 +4,10 @@
 
 @section('content')
 
-<!-- Memaksa navbar bawaan agar rata tengah mengikuti lebar form -->
 <div class="navbar-container-fix">
     @include('layouts.navbar')
 </div>
 
-<!-- Bootstrap Icons CDN Fix -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 <style>
@@ -35,7 +33,6 @@
         padding-right: 15px !important;
     }
 
-    /* Pembungkus Halaman Form */
     .form-wrapper {
         padding: 2.5rem 15px;
         max-width: 800px;
@@ -60,7 +57,6 @@
         font-weight: 400;
     }
 
-    /* Kotak Utama Form */
     .form-card-custom {
         background: var(--color-card);
         border: 1px solid var(--color-border);
@@ -97,7 +93,6 @@
         text-decoration: none;
     }
 
-    /* Tombol Simpan */
     .btn-save-custom {
         background-color: var(--color-primary) !important;
         border: 1.5px solid var(--color-primary) !important;
@@ -108,7 +103,6 @@
         border-color: #35271d !important;
     }
 
-    /* Tombol Kembali */
     .btn-back-custom {
         background-color: #FFFFFF !important;
         border: 1.5px solid #5A4B41 !important;
@@ -131,13 +125,12 @@
 </style>
 
 <div class="form-wrapper">
-    <!-- Header Page -->
+
     <div class="header-section text-start">
         <h1 class="main-title">Ubah Informasi Produk</h1>
         <p class="main-subtitle">Perbarui data spesifikasi, harga jual beli, atau unggah ulang gambar katalog produk</p>
     </div>
 
-    <!-- Form Container -->
     <div class="form-card-custom">
         <form action="{{ route('produk.update', $produk) }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -149,7 +142,7 @@
 </div>
 
 <script>
-    // Script Preview Image JavaScript
+
     function previewImage(input) {
         const preview = document.getElementById('preview');
         const previewText = document.getElementById('preview-text');

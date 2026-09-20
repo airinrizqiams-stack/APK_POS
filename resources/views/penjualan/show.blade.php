@@ -8,7 +8,6 @@
     @include('layouts.navbar')
 </div>
 
-<!-- Memanggil Bootstrap Icons via CDN -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 <style>
@@ -34,14 +33,12 @@
         padding-right: 15px !important;
     }
 
-    /* Pembungkus Konten Utama */
     .content-wrapper {
         padding: 2.5rem 15px;
         max-width: 1140px;
         margin: 0 auto;
     }
 
-    /* Ruang Kepala (Header) & Hierarki Teks */
     .header-section {
         padding-left: 0.5rem;
         margin-bottom: 2rem;
@@ -63,7 +60,6 @@
         font-weight: 400;
     }
 
-    /* Wadah Utama Konten (Card) */
     .card-custom {
         background: var(--color-card);
         border: 1px solid var(--color-border);
@@ -86,7 +82,6 @@
         padding: 1.5rem;
     }
 
-    /* Penataan Tabel Aesthetic */
     .table-aesthetic {
         margin-bottom: 0;
         width: 100%;
@@ -110,7 +105,6 @@
         color: #495057;
     }
 
-    /* Baris Rincian Pembayaran */
     .table-summary-row td {
         background-color: #FAFAFA !important;
         color: var(--color-primary) !important;
@@ -128,7 +122,6 @@
         border-bottom: 1px solid #EFEFEF !important;
     }
 
-    /* Label Penanda Status */
     .badge-method {
         background-color: rgba(171, 136, 109, 0.15);
         color: var(--color-primary);
@@ -156,7 +149,6 @@
         font-size: 0.85rem;
     }
 
-    /* Desain Tombol Kembali */
     .btn-back-custom {
         background-color: transparent !important;
         border: 1.5px solid var(--color-border) !important;
@@ -176,7 +168,6 @@
         color: var(--color-primary) !important;
     }
 
-    /* Box Tampilan QRIS pada Detail */
     .qris-detail-box {
         border: 2px dashed var(--color-border);
         background-color: #FAFAFA;
@@ -188,7 +179,6 @@
 
 <div class="content-wrapper">
 
-    <!-- Header -->
     <div class="header-section text-start">
         <div>
             <h1 class="main-title">Faktur Detail Transaksi</h1>
@@ -199,7 +189,6 @@
         </a>
     </div>
 
-    {{-- Informasi Utama Transaksi --}}
     <div class="card-custom text-start">
         <div class="card-header-custom">
             <i class="bi bi-receipt"></i> Ringkasan Nota #{{ $penjualan->id }}
@@ -224,7 +213,6 @@
                     </div>
                 </div>
 
-                <!-- Kondisi Header: Jika CASH / TUNAI -->
                 @if(($penjualan->metode_pembayaran ?? '') === 'CASH')
                     <div class="col-md-3">
                         <p class="mb-1 text-muted" style="font-size: 0.85rem; font-weight: 600; text-transform: uppercase;">Pembayaran Tunai</p>
@@ -234,7 +222,6 @@
                         <small class="text-muted">Kembali: Rp {{ number_format($penjualan->kembalian ?? 0, 0, ',', '.') }}</small>
                     </div>
 
-                <!-- Kondisi Header: Jika QRIS -->
                 @elseif(($penjualan->metode_pembayaran ?? '') === 'QRIS')
                     <div class="col-md-3">
                         <p class="mb-1 text-muted" style="font-size: 0.85rem; font-weight: 600; text-transform: uppercase;">Info Pembayaran QRIS</p>
@@ -245,7 +232,6 @@
         </div>
     </div>
 
-    {{-- Tabel Item Produk & Rincian Pembayaran --}}
     <div class="card-custom text-start">
         <div class="card-header-custom">
             <i class="bi bi-cart3"></i> Rincian Item Barang Yang Dibeli
@@ -270,7 +256,6 @@
                     </tr>
                     @endforeach
                     
-                    <!-- Total Keseluruhan Pembayaran -->
                     <tr class="table-total-row">
                         <td colspan="3" class="text-end fw-bold ps-4">Total Keseluruhan Pembayaran:</td>
                         <td class="text-end pe-4 fw-bold text-success">Rp {{ number_format($penjualan->total_pembayaran, 0, ',', '.') }}</td>

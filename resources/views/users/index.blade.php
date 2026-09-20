@@ -6,7 +6,6 @@
 
 @include('layouts.navbar')
 
-<!-- Memanggil Bootstrap Icons untuk indikator visual pada tombol dan input -->
 <link rel="stylesheet" href="https://jsdelivr.net">
 
 <style>
@@ -24,14 +23,12 @@
         color: #333333;
     }
 
-    /* Pembungkus Konten Utama */
     .content-wrapper {
         padding: 2.5rem 15px;
         max-width: 1140px;
         margin: 0 auto;
     }
 
-    /* Ruang Kepala (Header) & Hierarki Teks */
     .header-section {
         padding-left: 0.5rem;
         margin-bottom: 2rem;
@@ -50,7 +47,6 @@
         font-weight: 400;
     }
 
-    /* Wadah Utama (Card) */
     .table-card-custom {
         background: var(--color-card);
         border: 1px solid var(--color-border);
@@ -59,7 +55,6 @@
         box-shadow: 0 4px 15px rgba(96, 114, 116, 0.05);
     }
 
-    /* Gaya Kustom Input & Tombol Pencarian */
     .form-control-custom {
         border: 1.5px solid var(--color-border);
         border-radius: 8px !important;
@@ -75,7 +70,6 @@
         background-color: #FFFFFF;
     }
 
-    /* Desain Tombol-Tombol Aksi */
     .btn-primary-custom {
         background-color: var(--color-primary) !important;
         border: none !important;
@@ -104,7 +98,6 @@
         color: #FFFFFF !important;
     }
 
-    /* Penataan Tabel Aesthetic */
     .table-aesthetic {
         margin-bottom: 0;
     }
@@ -127,7 +120,6 @@
         color: #495057;
     }
 
-    /* Badge untuk Hak Akses (Role) */
     .badge-role {
         background-color: rgba(96, 114, 116, 0.1);
         color: var(--color-primary);
@@ -138,7 +130,6 @@
         text-transform: capitalize;
     }
 
-    /* Tombol Aksi Mini (Edit & Hapus) */
     .btn-action-edit {
         background-color: #ffc107 !important;
         color: #000000 !important;
@@ -161,17 +152,14 @@
 </style>
 
 <div class="content-wrapper">
-    
-    <!-- Bagian Kepala: Judul Terlokalisasi -->
+
     <div class="header-section text-start">
         <h1 class="main-title">Manajemen Pengguna</h1>
         <p class="main-subtitle">Kelola hak akses, tambah, atau perbarui data pengguna sistem POS Anda</p>
     </div>
 
-    <!-- Wadah Utama Konten -->
     <div class="table-card-custom">
-        
-        <!-- Baris Tombol Tambah & Form Pencarian -->
+
         <div class="row g-3 mb-4 align-items-center">
             <div class="col-md-4 text-start">
                 <a href="{{ route('admin.users.create') }}" class="btn btn-primary-custom">
@@ -198,7 +186,6 @@
             </div>
         </div>
 
-        <!-- Tabel Data Pengguna -->
         <div class="table-responsive">
             <table class="table table-aesthetic align-middle text-start">
                 <thead>
@@ -245,7 +232,6 @@
             </table>
         </div>
 
-        <!-- Bagian Pagination Sistem -->
         <div class="mt-4 d-flex justify-content-start">
             {{ $users->links() }}
         </div>

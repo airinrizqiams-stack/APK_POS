@@ -47,7 +47,7 @@ class UpdateRequest extends FormRequest
             'email.required'    => 'Email wajib diisi.',
             'email.email'       => 'Format email tidak valid.',
             'password.min'      => 'Password minimal :min karakter.',
-            'role_id.required'  => 'Role wajib diisi.', // <-- Diperbaiki dari role.id menjadi role_id
+            'role_id.required'  => 'Role wajib diisi.',
         ];
     }
 }
