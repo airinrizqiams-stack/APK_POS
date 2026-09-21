@@ -83,7 +83,7 @@
                         @csrf
                         <div class="mb-3">
                             <label class="form-label small fw-bold" style="color: var(--color-muted);">Nama Jenis Produk</label>
-                            <input type="text" name="nama_jenis" class="form-control form-control-custom @error('nama_jenis') is-invalid @enderror" placeholder="Contoh: Makanan, Minuman" required>
+                            <input type="text" name="nama_jenis" class="form-control form-control-custom @error('nama_jenis') is-invalid @enderror" placeholder="Masukkan : Makanan, Minuman" required>
                             @error('nama_jenis')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
